@@ -16,10 +16,10 @@ This web application which can be used to schedule, manage and monitor jobs effi
 2. Install python​ 3.x
 
 # To start client:
-Go to multi-task-scheduler/
-    > npm i --legacy-peer-deps
-    > npm start
+Go to multi-task-scheduler \
+> npm i --legacy-peer-deps \
+> npm start
 
 # To start server:
 Go to multi-task-scheduler/server
-    > //TODO
+> //TODO
