@@ -4,7 +4,7 @@ A multitasking scheduler system, which can execute tasks/jobs in parallel at a c
     * Days in which jobs are scheduled
     * Capacity utilization for a specific day
 
-This web application which can be used to schedule, manage and monitor jobs efficiently. This application will be built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
+This web application which can be used to schedule, manage and monitor jobs efficiently. This application is built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
 
 
 # Prerequistites:
