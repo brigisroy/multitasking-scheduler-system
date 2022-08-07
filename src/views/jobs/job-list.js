@@ -31,15 +31,15 @@ class JobList extends React.Component {
 
     getJobs() {
         let tasks = [
-            { "name": "Import users sample", "start_datetime": "1659848651000", "finish_datetime": "1659852251000", "value": "50", "required_capacity": "10", "frequency_in_hr": "2", "exec_time_in_min": "80" },
+            { "name": "Import users sample", "start_datetime": "1659848651000", "finish_datetime": "1659970800000", "value": "50", "required_capacity": "10", "frequency_in_hr": "2", "exec_time_in_min": "80" },
             { "name": "Import devices sample", "start_datetime": "1659834251000", "finish_datetime": "1659909851000", "value": "40", "required_capacity": "40", "frequency_in_hr": "1", "exec_time_in_min": "30" },
             {
                 exec_time_in_min: "120",
-                finish_datetime: "1659900600000",
+                finish_datetime: "1659884400000",
                 frequency_in_hr: "2",
                 name: "Delete cache",
                 required_capacity: "12",
-                start_datetime: "1659893400000",
+                start_datetime: "1659873600000",
                 value: "11"
             },
         ]
@@ -90,36 +90,38 @@ class JobList extends React.Component {
 
     getProgressBar = (start_datetime, finish_datetime) => {
         let current_dateTime = new Date().valueOf();
-        let progress = 0;
+        let progress = 0.0;
         let color = ""
         // Completed
         if (current_dateTime >= finish_datetime) {
             progress = 100
             // Haven't started yet
-        } else if (current_dateTime > start_datetime) {
+        } else if (current_dateTime <= start_datetime) {
             progress = 0
             // In Progress
         } else {
-            let exec_time_in_ms = start_datetime - finish_datetime
-            let ms_per_percent = exec_time_in_ms / 100
-            let passed_time_in_ms = current_dateTime - start_datetime
-            progress = passed_time_in_ms * ms_per_percent / exec_time_in_ms * 100
+            let exec_time_in_min = (finish_datetime -  start_datetime) / 60000
+            // let ms_per_percent = exec_time_in_min / 100
+            let passed_time_in_min = (current_dateTime - start_datetime)/60000
+            // progress = passed_time_in_min * ms_per_percent / exec_time_in_min / 100
+            progress = passed_time_in_min/exec_time_in_min*100
         }
 
         if (progress < 30) {
-            color = "bg-danger"
+            color = "danger"
         } else if (progress < 70) {
-            color = "bg-info"
+            color = "warning"
         } else {
-            color = "bg-green"
+            color = "success"
         }
 
         return (<>
             <Progress
                 max="100"
-                value={progress + ""}
-                barClassName={color = ""}
+                value={progress}
+                color={color}
             />
+            {Math.round(progress * 100) / 100} %
         </>)
     }
 
@@ -148,8 +150,8 @@ class JobList extends React.Component {
             dataTable.push(newRow)
         })
 
-        //To Show the most recent tranaction on Top
-        dataTable.reverse();
+        // //To Show the most recent tranaction on Top
+        // dataTable.reverse();
 
         return dataTable
     }
