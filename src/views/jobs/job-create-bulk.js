@@ -208,6 +208,7 @@ class JobCreateBulk extends React.Component {
                                                     type="file"
                                                     accept=".csv"
                                                     autoComplete="off"
+                                                    style={{ display: "block", padding: "10px" }}
                                                     onChange={this.handleFileUpload}
                                                 />
                                             </FormGroup>
