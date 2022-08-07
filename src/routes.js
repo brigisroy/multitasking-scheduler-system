@@ -31,6 +31,7 @@ import Index from "views/Index.js";
 import JobList from "views/jobs/job-list";
 import JobCreate from "views/jobs/job-create";
 import JobListByDate from "views/jobs/job-list-by-date"
+import jobCreateBulk from "views/jobs/job-create-bulk";
 
 var routes = [
   {
@@ -45,6 +46,13 @@ var routes = [
     name: "Schedule Job",
     icon: "ni ni-bold-right text-green",
     component: JobCreate,
+    layout: "/admin",
+  },
+  {
+    path: "/create-job-bulk",
+    name: "Schedule Bulk Job",
+    icon: "ni ni-cloud-upload-96 text-green",
+    component: jobCreateBulk,
     layout: "/admin",
   },
   {

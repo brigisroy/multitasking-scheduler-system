@@ -105,6 +105,17 @@ class JobCreate extends React.Component {
                 return null;
             }
 
+            if (task.value < 1 || task.value > 100) {
+                this.props.enqueueSnackbar(
+                    `Task ${index + 1}'s value should be within 1 to 100`,
+                    {
+                        variant: "error"
+                    }
+                );
+                stopFlag = true;
+                return null;
+            }
+
             if (task.frequency_in_hr === "") {
                 this.props.enqueueSnackbar(
                     `Task ${index + 1}'s Frequency field is empty`,
@@ -123,41 +134,33 @@ class JobCreate extends React.Component {
             return;
         }
 
-        // this.setState({ isSubmitBtnDisabled: true })
-        // Axios.post(`${CONSTANTS.SERVER_URL}/api/commodities/add`, payload)
-        //     .then(res => {
-        //         console.log(res);
-        //         if (res.data === "success") {
-        //             this.props.enqueueSnackbar(
-        //                 "Commodities successfully added",
-        //                 {
-        //                     variant: "success"
-        //                 }
-        //             );
-        //             this.setState({ isJobCreationSuccess: true })
-        //         }
-        //         else if (res.data === "duplicate") {
-        //             this.props.enqueueSnackbar(
-        //                 "Commodity group name already found, Please provide a new commodity group name !",
-        //                 {
-        //                     variant: "error"
-        //                 }
-        //             );
-        //         }
-        //     })
-        //     .catch(err => {
-        //         this.setState({ isSubmitBtnDisabled: false })
-        //         this.props.enqueueSnackbar(
-        //             err.response !== undefined ? (err.response.data.message !== undefined ? err.response.data.message : "Something went wrong!") : "Something went wrong!",
-        //             {
-        //                 variant: "warning"
-        //             }
-        //         );
-        //     });
+        this.setState({ isSubmitBtnDisabled: true })
+        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs/create`, payload)
+            .then(res => {
+                console.log(res);
+                if (res.data === "success") {
+                    this.props.enqueueSnackbar(
+                        "Tasks successfully scheduled",
+                        {
+                            variant: "success"
+                        }
+                    );
+                    this.setState({ isJobCreationSuccess: true })
+                }
+            })
+            .catch(err => {
+                this.setState({ isSubmitBtnDisabled: false })
+                console.log(err)
+                this.props.enqueueSnackbar(
+                    "Something went wrong!",
+                    {
+                        variant: "warning"
+                    }
+                );
+            });
     };
 
     handleDateChange = (val, target) => {
-        // console.log(val)
         this.handleChange({
             target: target
         });
@@ -243,7 +246,7 @@ class JobCreate extends React.Component {
                                                             name="name"
                                                             placeholder="Task name"
                                                             className="form-control-alternative"
-                                                            type="text"
+                                                            type="number"
                                                             value={this.state.tasks[index].name}
                                                             autoComplete="off"
                                                             onChange={this.handleChange}
@@ -319,7 +322,7 @@ class JobCreate extends React.Component {
                                                         <Input
                                                             id={index}
                                                             name="required_capacity"
-                                                            placeholder="Required Capacity"
+                                                            placeholder="Required Capacity (1 to 80)"
                                                             className="form-control-alternative"
                                                             type="number"
                                                             value={this.state.tasks[index].required_capacity}
@@ -337,7 +340,7 @@ class JobCreate extends React.Component {
                                                         <Input
                                                             id={index}
                                                             name="value"
-                                                            placeholder="Value"
+                                                            placeholder="Value (1 to 100)"
                                                             className="form-control-alternative"
                                                             type="string"
                                                             value={this.state.tasks[index].value}
