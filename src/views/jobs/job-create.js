@@ -246,7 +246,7 @@ class JobCreate extends React.Component {
                                                             name="name"
                                                             placeholder="Task name"
                                                             className="form-control-alternative"
-                                                            type="number"
+                                                            type="string"
                                                             value={this.state.tasks[index].name}
                                                             autoComplete="off"
                                                             onChange={this.handleChange}
