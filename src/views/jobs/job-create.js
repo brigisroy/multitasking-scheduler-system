@@ -52,7 +52,7 @@ class JobCreate extends React.Component {
         payload.tasks = this.state.tasks;
 
         if (payload.tasks.length === 0) {
-            this.props.enqueueSnackbar("Atleast 1 Task Needed !", {
+            this.props.enqueueSnackbar("Atleast 1 Task needed", {
                 variant: "error"
             });
             return;
@@ -60,9 +60,9 @@ class JobCreate extends React.Component {
 
         let stopFlag = false;
         payload.tasks.map((task, index) => {
-            if (task.name === "") {
+            if (!task.name) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s name field is empty !`,
+                    `Task ${index + 1}'s Name field is empty`,
                     {
                         variant: "error"
                     }
@@ -70,9 +70,33 @@ class JobCreate extends React.Component {
                 stopFlag = true;
                 return null;
             }
+
+            if (!task.start_datetime) {
+                this.props.enqueueSnackbar(
+                    `Task ${index + 1}'s Start date time field is empty`,
+                    {
+                        variant: "error"
+                    }
+                );
+                stopFlag = true;
+                return null;
+            }
+
+            
+            if (!task.finish_datetime) {
+                this.props.enqueueSnackbar(
+                    `Task ${index + 1}'s Finish date time field is empty`,
+                    {
+                        variant: "error"
+                    }
+                );
+                stopFlag = true;
+                return null;
+            }
+
             if (task.required_capacity < 1 || task.required_capacity > 80) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Required capacity should be within 1 to 80 !`,
+                    `Task ${index + 1}'s Required capacity should be within 1 to 80`,
                     {
                         variant: "error"
                     }
@@ -83,7 +107,7 @@ class JobCreate extends React.Component {
 
             if (task.frequency_in_hr === "") {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Frequency field is empty !`,
+                    `Task ${index + 1}'s Frequency field is empty`,
                     {
                         variant: "error"
                     }
@@ -132,8 +156,8 @@ class JobCreate extends React.Component {
         //     });
     };
 
-    handleStartDateChange = (val, target) => {
-        console.log(val)
+    handleDateChange = (val, target) => {
+        // console.log(val)
         this.handleChange({
             target: target
         });
@@ -158,14 +182,16 @@ class JobCreate extends React.Component {
         const task_name = e.target.name;
         let tasks = this.state.tasks
         tasks[index][task_name] = e.target.value
-        this.setState({ tasks: tasks }, () => {
-            if (this.state.tasks[index].start_datetime && this.state.tasks[index].exec_time_in_min) {
-                let tasks = this.state.tasks;
-                let start_time = new Date(tasks[index].start_datetime);
-                tasks[index].finish_datetime = start_time.setMinutes(start_time.getMinutes() + tasks[index].exec_time_in_min).valueOf()
-                this.setState({ tasks: tasks })
-            }
-        })
+        this.setState({ tasks: tasks }
+            // , () => {
+            // if (this.state.tasks[index].start_datetime && this.state.tasks[index].exec_time_in_min) {
+            //     let tasks = this.state.tasks;
+            //     let start_time = new Date(tasks[index].start_datetime);
+            //     tasks[index].finish_datetime = start_time.setMinutes(start_time.getMinutes() + tasks[index].exec_time_in_min).valueOf()
+            //     this.setState({ tasks: tasks })
+            // }
+            // }
+        )
     };
 
     handleRemoveTask = e => {
@@ -232,16 +258,6 @@ class JobCreate extends React.Component {
                                                         Task Start Datetime
                                                     </label>
                                                     <br />
-                                                    {/* <Input
-                                                            id={index}
-                                                            name="start_datetime"
-                                                            placeholder="Task Start datetime"
-                                                            className="form-control-alternative"
-                                                            type="datetime"
-                                                            value={this.state.tasks[index].start_datetime}
-                                                            autoComplete="off"
-                                                            onChange={this.handleChange}
-                                                        /> */}
                                                     <FormGroup>
                                                         <InputGroup className="input-group-alternative">
                                                             <InputGroupAddon addonType="prepend">
@@ -255,7 +271,7 @@ class JobCreate extends React.Component {
                                                                 }}
                                                                 type="datetime"
                                                                 value={this.state.tasks[index].start_datetime}
-                                                                onChange={(e) => this.handleStartDateChange(e, {
+                                                                onChange={(e) => this.handleDateChange(e, {
                                                                     name: "start_datetime",
                                                                     value: e.valueOf(),
                                                                     id: index
@@ -264,6 +280,36 @@ class JobCreate extends React.Component {
                                                         </InputGroup>
                                                     </FormGroup>
                                                 </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label className="form-control-label">
+                                                            Task End Datetime (Predicted)
+                                                        </label>
+                                                        <br />
+                                                        <InputGroup className="input-group-alternative">
+                                                            <InputGroupAddon addonType="prepend">
+                                                                <InputGroupText>
+                                                                    <i className="ni ni-calendar-grid-58" />
+                                                                </InputGroupText>
+                                                            </InputGroupAddon>
+                                                            <Datetime
+                                                                inputProps={{
+                                                                    placeholder: "Task End Time",
+                                                                    // disabled: true
+                                                                }}
+                                                                type="datetime"
+                                                                onChange={(e) => this.handleDateChange(e, {
+                                                                    name: "finish_datetime",
+                                                                    value: e.valueOf(),
+                                                                    id: index
+                                                                })}
+                                                                // value={this.state.tasks[index].finish_datetime ? new Date(this.state.tasks[index].finish_datetime) : "Enter Start and Execution time to see Task End Time"}
+                                                            />
+                                                        </InputGroup>
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
                                                 <Col lg="6">
                                                     <FormGroup>
                                                         <label className="form-control-label">
@@ -276,9 +322,25 @@ class JobCreate extends React.Component {
                                                             placeholder="Required Capacity"
                                                             className="form-control-alternative"
                                                             type="number"
-                                                            min="1"
-                                                            max="80"
                                                             value={this.state.tasks[index].required_capacity}
+                                                            autoComplete="off"
+                                                            onChange={this.handleChange}
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg="6">
+                                                    <FormGroup>
+                                                        <label className="form-control-label">
+                                                            Value
+                                                        </label>
+                                                        <br />
+                                                        <Input
+                                                            id={index}
+                                                            name="value"
+                                                            placeholder="Value"
+                                                            className="form-control-alternative"
+                                                            type="string"
+                                                            value={this.state.tasks[index].value}
                                                             autoComplete="off"
                                                             onChange={this.handleChange}
                                                         />
@@ -324,31 +386,6 @@ class JobCreate extends React.Component {
                                                             autoComplete="off"
                                                             onChange={this.handleChange}
                                                         />
-                                                    </FormGroup>
-                                                </Col>
-                                            </Row>
-                                            <Row>
-                                                <Col lg="12"> 
-                                                    <FormGroup>
-                                                        <label className="form-control-label">
-                                                            Task End Datetime (Predicted)
-                                                        </label>
-                                                        <br />
-                                                        <InputGroup className="input-group-alternative">
-                                                            <InputGroupAddon addonType="prepend">
-                                                                <InputGroupText>
-                                                                    <i className="ni ni-calendar-grid-58" />
-                                                                </InputGroupText>
-                                                            </InputGroupAddon>
-                                                            <Datetime
-                                                                inputProps={{
-                                                                    placeholder: "Task End Time",
-                                                                    disabled: true
-                                                                }}
-                                                                type="datetime"
-                                                                value={this.state.tasks[index].finish_datetime ? new Date(this.state.tasks[index].finish_datetime) : "Enter Start and Execution time to see Task End Time"}
-                                                            />
-                                                        </InputGroup>
                                                     </FormGroup>
                                                 </Col>
                                             </Row>
