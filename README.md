@@ -14,12 +14,20 @@ This web application which can be used to schedule, manage and monitor jobs effi
 # Prerequistites:
 1. Install Node.js
 2. Install python​ 3.x
+3. Install Docker 
+4. Install Java 11
 
 # To start client:
 Go to multi-task-scheduler \
 > npm i --legacy-peer-deps \
 > npm start
 
+
+# To start mysql server 
+> cd db \
+> docker compose up
+
 # To start server:
 Go to multi-task-scheduler/server
-> //TODO
+>cd target \
+> java -jar worker-1.jar

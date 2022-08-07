@@ -32,6 +32,6 @@ public class JobService {
 
     @Scheduled(fixedRateString = "PT1M")
     public void createTasks(){
-        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin();
+//        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin();
     }
 }
