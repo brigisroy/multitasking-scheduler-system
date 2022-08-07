@@ -45,7 +45,7 @@ class JobList extends React.Component {
             },
             {
                 exec_time_in_min: "120",
-                finish_datetime: "1659084400000",
+                finish_datetime: "1659874400000",
                 frequency_in_hr: "2",
                 name: "Clean S2 cache",
                 required_capacity: "12",
@@ -144,7 +144,7 @@ class JobList extends React.Component {
                 new Date(parseInt(row.finish_datetime)).toLocaleString(),
                 row.required_capacity,
                 row.value,
-                row.exec_time_in_min,
+                Math.round((row.finish_datetime - row.start_datetime) / 60000),
                 this.getProgressBar(parseInt(row.start_datetime), parseInt(row.finish_datetime)),
                 <>
                     <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/job/edit?id=" + row._id }}>
