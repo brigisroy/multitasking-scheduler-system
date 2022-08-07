@@ -31,7 +31,7 @@ import Index from "views/Index.js";
 import JobList from "views/jobs/job-list";
 import JobCreate from "views/jobs/job-create";
 import JobListByDate from "views/jobs/job-list-by-date"
-import jobCreateBulk from "views/jobs/job-create-bulk";
+import JobCreateBulk from "views/jobs/job-create-bulk";
 
 var routes = [
   {
@@ -52,14 +52,14 @@ var routes = [
     path: "/create-job-bulk",
     name: "Schedule Bulk Job",
     icon: "ni ni-cloud-upload-96 text-green",
-    component: jobCreateBulk,
+    component: JobCreateBulk,
     layout: "/admin",
   },
   {
     path: "/list-jobs",
     name: "List Jobs",
-    // <FontAwesomeIcon icon="fa-solid fa-rectangle-history" />
-    // icon: "fa fa-solid fa-rectangle-history",
+    // icon: "fa-regular fa-list text-green",
+    // icon: "fa-regular fa-trash-can text-yellow",
     icon: "ni ni-folder-17 text-yellow",
     component: JobList,
     layout: "/admin",

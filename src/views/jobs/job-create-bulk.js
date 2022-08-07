@@ -9,15 +9,11 @@ import {
     CardHeader,
     CardBody,
     FormGroup,
-    Form,
     Input,
     Container,
     Row,
     Col,
     CardFooter,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText
 } from "reactstrap";
 
 import CommonHeader from "components/Headers/CommonHeader.js";
