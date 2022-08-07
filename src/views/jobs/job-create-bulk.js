@@ -24,10 +24,11 @@ import CommonHeader from "components/Headers/CommonHeader.js";
 import Axios from "axios";
 import { withSnackbar } from "notistack";
 import CONSTANTS from "./../../variables/general.js";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
 
 class JobCreateBulk extends React.Component {
-    
+
     state = {
         tasks: [
             // {
@@ -170,7 +171,7 @@ class JobCreateBulk extends React.Component {
             complete: function (results) {
                 this.setState({ tasks: results.data })
             }.bind(this),
-          });
+        });
     }
 
     // =======  Handler functions end  =======
@@ -210,6 +211,13 @@ class JobCreateBulk extends React.Component {
                                                     onChange={this.handleFileUpload}
                                                 />
                                             </FormGroup>
+                                        </Col>
+                                        <Col lg="4" />
+                                    </Row>
+                                    <Row>
+                                        <Col lg="4" />
+                                        <Col lg="4">
+                                            <Link to={require("../../assets/multi_task_scheduler_template.csv").default} target="_blank" download>Download Sample Template</Link>
                                         </Col>
                                         <Col lg="4" />
                                     </Row>
