@@ -18,6 +18,7 @@ import CONSTANTS from "../../variables/general.js"
 import CommonHeader from "../../components/Headers/CommonHeader.js";
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CircularProgress } from "@mui/material";
 
 class JobList extends React.Component {
 
@@ -37,7 +38,16 @@ class JobList extends React.Component {
                 exec_time_in_min: "120",
                 finish_datetime: "1659884400000",
                 frequency_in_hr: "2",
-                name: "Delete cache",
+                name: "Clean S1 cache",
+                required_capacity: "12",
+                start_datetime: "1659873600000",
+                value: "11"
+            },
+            {
+                exec_time_in_min: "120",
+                finish_datetime: "1659084400000",
+                frequency_in_hr: "2",
+                name: "Clean S2 cache",
                 required_capacity: "12",
                 start_datetime: "1659873600000",
                 value: "11"
@@ -100,11 +110,11 @@ class JobList extends React.Component {
             progress = 0
             // In Progress
         } else {
-            let exec_time_in_min = (finish_datetime -  start_datetime) / 60000
+            let exec_time_in_min = (finish_datetime - start_datetime) / 60000
             // let ms_per_percent = exec_time_in_min / 100
-            let passed_time_in_min = (current_dateTime - start_datetime)/60000
+            let passed_time_in_min = (current_dateTime - start_datetime) / 60000
             // progress = passed_time_in_min * ms_per_percent / exec_time_in_min / 100
-            progress = passed_time_in_min/exec_time_in_min*100
+            progress = passed_time_in_min / exec_time_in_min * 100
         }
 
         if (progress < 30) {
@@ -117,7 +127,7 @@ class JobList extends React.Component {
 
         return (<>
             <Progress
-                max="100"
+                animated={progress != 100}
                 value={progress}
                 color={color}
             />
