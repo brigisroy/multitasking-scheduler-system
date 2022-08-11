@@ -1,5 +1,6 @@
 package hell.fire.worker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import hell.fire.worker.model.eumus.JobsStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,6 @@ public class Tasks {
     private Date createAt;
 
     @ManyToOne
-    private Jobs jobId;
+    @JsonIgnore
+    private Jobs job;
 }

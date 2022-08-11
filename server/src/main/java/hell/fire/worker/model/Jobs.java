@@ -1,6 +1,7 @@
 package hell.fire.worker.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hell.fire.worker.model.eumus.JobsStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -20,11 +22,16 @@ public class Jobs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @JsonProperty("start_datetime")
     private Date startDatetime;
+    @JsonProperty("finish_datetime")
     private Date finishDatetime;
     private String value;
+    @JsonProperty("required_capacity")
     private int requiredCapacity;
-    private int frequencyIHr;
+    @JsonProperty("frequency_in_hr")
+    private int frequencyInHr;
+    @JsonProperty("exec_time_in_min")
     private int execTimeInMin = 0;
     @Column(columnDefinition = "enum('CREATED', 'STARTED', 'RUNNING', 'CANCELLED', 'STOPPED', 'COMPLETED')")
     @Enumerated(EnumType.STRING)
