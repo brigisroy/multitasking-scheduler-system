@@ -1,8 +1,0 @@
-hell\fire\worker\dto\JobsDTO.class
-hell\fire\worker\service\JobService.class
-hell\fire\worker\controller\JobsController.class
-hell\fire\worker\WorkerApplication.class
-hell\fire\worker\repository\JobsRepository.class
-hell\fire\worker\model\eumus\JobsStatus.class
-hell\fire\worker\model\Tasks.class
-hell\fire\worker\model\Jobs.class

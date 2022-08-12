@@ -2,6 +2,7 @@ package hell.fire.worker.controller;
 
 import hell.fire.worker.dto.JobsDTO;
 import hell.fire.worker.model.Jobs;
+import hell.fire.worker.model.Tasks;
 import hell.fire.worker.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
