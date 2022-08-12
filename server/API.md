@@ -24,3 +24,14 @@ tasks":
 \
 API: /api/job/ \
 METHOD: GET
+
+\
+API: /api/alert_config \
+METHOD: GET
+
+\
+API: /api/alert_config
+METHOD: POST
+BODY: {
+    "to_mail" : ["admin@hellfire.com", "dev@hellfire.com"] 
+}
