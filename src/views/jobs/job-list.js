@@ -16,9 +16,6 @@ import Axios from "axios";
 import { withSnackbar } from "notistack";
 import CONSTANTS from "../../variables/general.js"
 import CommonHeader from "../../components/Headers/CommonHeader.js";
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CircularProgress } from "@mui/material";
 
 class JobList extends React.Component {
 

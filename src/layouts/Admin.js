@@ -23,6 +23,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 
 import routes from "routes.js";
 import { SnackbarProvider } from "notistack";
+import JobEdit from "../views/jobs/job-edit";
 
 const Admin = (props) => {
   const mainContent = React.useRef(null);
@@ -88,6 +89,11 @@ const Admin = (props) => {
           brandText={getBrandText(props.location.pathname)}
         />
         <Switch>
+          <Route
+              exact
+              path="/admin/job/edit"
+              component={JobEdit}
+          />
           {getRoutes(routes)}
           <Redirect from="*" to="/admin/index" />
         </Switch>
