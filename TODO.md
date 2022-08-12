@@ -1,5 +1,8 @@
 Arun J:
 1. Dashboard
+   1. Job execution time
+   2. Job capacity
+   3. Show job count at top
 2. Job Filter
 3. Edit job
 4. Delete job
