@@ -23,7 +23,8 @@ tasks":
 
 \
 API: /api/job/ \
-METHOD: GET
+METHOD: GET \
+PARAM: start_date=${epoch}&end_date=${epoch}
 
 \
 API: /api/alert_config \
