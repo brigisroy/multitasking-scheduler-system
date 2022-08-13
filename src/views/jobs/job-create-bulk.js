@@ -136,25 +136,26 @@ class JobCreateBulk extends React.Component {
         Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs`, payload.jobs)
             .then(res => {
                 console.log(res);
-                if (res.data === "success") {
-                    this.props.enqueueSnackbar(
-                        "Jobs successfully scheduled",
-                        {
-                            variant: "success"
-                        }
-                    );
-                    this.setState({ isJobCreationSuccess: true })
-                }
+                this.props.enqueueSnackbar(
+                    "Jobs successfully scheduled",
+                    {
+                        variant: "success"
+                    }
+                );
+                this.setState({ isJobCreationSuccess: true })
             })
             .catch(err => {
-                this.setState({ isSubmitBtnDisabled: false })
                 console.log(err)
+                this.setState({ isSubmitBtnDisabled: false })
                 this.props.enqueueSnackbar(
                     "Something went wrong!",
                     {
                         variant: "warning"
                     }
                 );
+            })
+            .finally(() => {
+
             });
     };
 
@@ -230,7 +231,7 @@ class JobCreateBulk extends React.Component {
                 </Container>
 
                 {/* Redirect on submit */}
-                {this.state.isJobCreationSuccess ? <Redirect to="/admin/job/" /> : null}
+                {this.state.isJobCreationSuccess ? <Redirect to="/admin/list-jobs/" /> : null}
 
             </>
         );
