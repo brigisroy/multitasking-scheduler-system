@@ -18,50 +18,35 @@ import {
     CardFooter
 } from "reactstrap";
 // import Select from "react-select";
-import GridItem from "../../components/Grid/GridItem.js";
-import GridContainer from "../../components/Grid/GridContainer.js";
-import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core/styles';
 import Axios from "axios";
 import { withSnackbar } from "notistack";
-import ReactToPrint from 'react-to-print';
-// import PrintStatement from "components/Print/PrintStatement.js";
-
-const customStyles = {
-    CustomStyles: {
-        '& td': { backgroundColor: "#FAA", boxShadow: "0 8px 4px 0 rgba(0, 0, 0, 0.2)" }
-    },
-    NameCell: {
-        fontWeight: 900
-    },
-};
+import TaskList from "views/tasks/task-list.js";
 
 class DateSearch extends React.Component {
-    // constructor(props) {
-    //     super(props);
-    // }
 
     state = {
-        data: [],
-        from_date: new Date().toISOString(),
-        to_date: new Date().toISOString(),
-        filter: {
-            user_id: ""
-        },
+        from_date: "",
+        to_date: "",
+        filtered_tasks: [],
         isValidFromDate: false,
         isValidToDate: false,
-        isDataReceived: false,
-        closing_balance: "",
-        opening_balance: "",
-        isStatement: false
     }
 
     getdata = e => {
         // Module Specific Check
         var link = this.props.submitLink;
-        this.setState({ isDataReceived: false })
-        const from_date = new Date(this.state.from_date);
-        const to_date = new Date(this.state.to_date);
-        if (!(to_date - from_date >= 0)) {
+        const from_date = this.state.from_date;
+        const to_date = this.state.to_date;
+        if (!from_date || !to_date) {
+            this.props.enqueueSnackbar(
+                "Select From Date and To Date",
+                {
+                    variant: "error"
+                }
+            );
+            return;
+        }
+        if (to_date <= from_date) {
             this.props.enqueueSnackbar(
                 "From date should should be less than To Date",
                 {
@@ -70,32 +55,20 @@ class DateSearch extends React.Component {
             );
             return;
         }
-        from_date.setHours(0, 0, 0, 0)
-        to_date.setHours(23, 59, 59, 99)
-        this.props.disableSubmitButton(true);
-        Axios.get(link + `${from_date.toISOString()}/${to_date.toISOString()}/${this.state.filter.user_id}`)
+        let from_date_min = new Date(from_date).setHours(0, 0, 0, 0)
+        let to_date_max = new Date(to_date).setHours(23, 59, 59, 99)
+        Axios.get(link + `?start_datetime=${from_date_min}&finish_datetime=${to_date_max}`)
             .then(res => {
-                this.props.disableSubmitButton(false);
-
-                let data = [];
-                if (this.props.module === "statement") {
-                    this.setState({ isStatement: true })
-                    this.setState({ opening_balance: res.data[0].opening_balance })
-                    this.setState({ closing_balance: res.data[0].closing_balance })
-
-                }
+                let filtered_tasks = [];
                 res.data.forEach(trans => {
-                    data.push(trans)
+                    filtered_tasks.push(trans)
                 })
-
-                this.setState({ data })
-
-                this.setState({ isDataReceived: true })
+                this.setState({ filtered_tasks })
             })
             .catch(err => {
+                console.log(err)
                 this.props.enqueueSnackbar(
-                    //TODO : Perform proper error handling
-                    err.response !== undefined ? (err.response.data.message !== undefined ? err.response.data.message : "No Result Found") : "No Result Found",
+                    "Something went wrong",
                     {
                         variant: "warning"
                     }
@@ -106,7 +79,7 @@ class DateSearch extends React.Component {
 
     handleFromDateChange = e => {
         if (e.isValid) {
-            const DATE = e.format();
+            const DATE = e.valueOf();
             this.setState({ from_date: DATE }, console.log(this.state));
             this.setState({ isValidFromDate: true });
         } else {
@@ -116,7 +89,7 @@ class DateSearch extends React.Component {
 
     handleToDateChange = e => {
         if (e.isValid) {
-            const DATE = e.format();
+            const DATE = e.valueOf();
             this.setState({ to_date: DATE }, console.log(this.state));
             this.setState({ isValidToDate: true });
         } else {
@@ -134,14 +107,14 @@ class DateSearch extends React.Component {
                                 <CardHeader className="bg-white border-0">
                                     <Row className="align-items-center">
                                         <Col xs="8">
-                                            <h3 className="mb-0">Statement</h3>
+                                            <h3 className="mb-0">List Tasks</h3>
                                         </Col>
                                     </Row>
                                 </CardHeader>
                                 <CardBody>
                                     <Form>
                                         <h6 className="heading-small text-muted mb-4">
-                                            Statement
+                                            Filter Tasks
                                         </h6>
                                         <div className="pl-lg-4">
                                             <Row>
@@ -199,85 +172,23 @@ class DateSearch extends React.Component {
                                 </CardBody>
                                 <CardFooter>
                                     <Button
-                                        disabled={this.props.isSubmitBtnDisabled}
                                         color="info"
                                         onClick={this.getdata}
                                     >
-                                        Get Jobs List
+                                        Get Tasks List
                                     </Button>
                                 </CardFooter>
                             </Card>
                         </Col>
                     </Row>
-                    {this.state.isDataReceived ? <ListView user_id={this.state.filter.user_id} data={this.state.data} columns={this.props.columns} generateTableData={this.props.generateTableData} module={this.props.module} from={this.state.from_date} to={this.state.to_date} options={this.props.options} opening_balance={this.state.opening_balance} closing_balance={this.state.closing_balance} isStatement={this.state.isStatement} /> : ""}
                 </div>
-            </>
-        )
-    }
-}
-
-class ListView extends React.Component {
-
-    getMuiTheme = () => createMuiTheme({
-        overrides: {
-            MUIDataTable: {
-                root: {
-                    // boxShadow: "grey"
-                },
-                paper: {
-                    // width: '100%'
+                {
+                    this.state.filtered_tasks != 0 ?
+                        <>
+                            <div style={{ padding: "50px" }}></div>
+                            <TaskList isSubSection={true} />
+                        </> : <></>
                 }
-            },
-            MUIDataTableBodyCell: {
-                root: {
-                    // backgroundColor: "#FFF"
-                }
-            }
-        }
-    });
-
-    generateTableData = this.props.generateTableData;
-
-    render() {
-
-        const columns = this.props.columns;
-
-        const options = this.props.options;
-        return (
-            <>
-
-                <br />
-                <CardBody>
-                    <Form>
-                        <h6 className="heading-small text-muted mb-4">
-                            Statement List
-                                    </h6>
-                        <div className="pl-lg-4">
-                            {this.props.statement}
-                        </div>
-                    </Form>
-                </CardBody>
-                <Col className=" mt--7 order-xl-1" xl="12">
-                    <Card className="bg-secondary shadow">
-                        <CardHeader className="bg-white border-0">
-                            <Row className="align-items-center">
-                                <Col xs="8">
-                                    <h3 className="mb-0">Statements</h3>
-                                </Col>
-                            </Row>
-                        </CardHeader>
-                        <CardBody>
-                            {/* MUI DATATABLE */}
-                            <GridContainer>
-                                <GridItem xs={12} sm={12} md={12}>
-                                    <MuiThemeProvider theme={this.getMuiTheme()}>
-                                        <MUIDataTable title={""} data={this.generateTableData(this.props.data)} columns={columns} options={options} />
-                                    </MuiThemeProvider>
-                                </GridItem>
-                            </GridContainer>
-                        </CardBody>
-                    </Card>
-                </Col>
             </>
         )
     }

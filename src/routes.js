@@ -34,6 +34,7 @@ import JobListByDate from "views/jobs/job-list-by-date"
 import JobCreateBulk from "views/jobs/job-create-bulk";
 import AlertConfig from "views/alerts/alerts"
 import TaskList from "views/tasks/task-list";
+import TaskListByDate from "views/tasks/task-list-by-date";
 
 var routes = [
   {
@@ -82,7 +83,7 @@ var routes = [
     path: "/list-tasks-by-date",
     name: "List Tasks By Date",
     icon: "ni ni-calendar-grid-58 text-blue",
-    component: JobList,
+    component: TaskListByDate,
     layout: "/admin",
   },
   {

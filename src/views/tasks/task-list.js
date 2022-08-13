@@ -178,7 +178,9 @@ class TaskList extends React.Component {
 
         return (
             <>
-                <CommonHeader />
+                
+                {this.props.isSubSection ? null : <CommonHeader />}
+
                 <Col className=" mt--7 order-xl-1" xl="12">
                     <Card className="bg-secondary shadow">
                         <CardHeader className="bg-white border-0">

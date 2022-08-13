@@ -1,5 +1,7 @@
 Arun J:
 1. Dashboard
+   1. Jobs running
+   1. Jobs created
    1. Job execution time
    2. Job capacity
    3. Show job count at top
