@@ -3,9 +3,9 @@ Arun J:
    1. Job execution time
    2. Job capacity
    3. Show job count at top
-1. Job create [DONE]
-1. Create Bulk Job [DONE]
-1. List Job [DONE]
+1. ~~Job create~~
+1. ~~Create Bulk Job~~
+1. ~~List Job~~
 1. List jobs based on start and end Filter
 2. List tasks based on start and end filter
 1. Edit job
