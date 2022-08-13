@@ -374,7 +374,7 @@ class JobCreate extends React.Component {
                                                 <Col lg="6">
                                                     <FormGroup>
                                                         <label className="form-control-label">
-                                                            Execution time in mins
+                                                            Execution time in mins (Simulated)
                                                         </label>
                                                         <br />
                                                         <Input
