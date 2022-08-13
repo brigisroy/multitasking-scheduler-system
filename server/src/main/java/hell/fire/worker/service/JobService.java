@@ -1,5 +1,7 @@
 package hell.fire.worker.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hell.fire.worker.dto.JobsDTO;
 import hell.fire.worker.model.Jobs;
 import hell.fire.worker.model.Tasks;
@@ -92,12 +94,16 @@ public class JobService {
     }
 
     private void triggerMail(Jobs job) {
-        String from = "admin@mail.com";
-        String to = "dev@mail.com";
         String subject = "Job with " + job.getId() + " has been " + job.getStatus();
-        String htmlText = job.toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String htmlText;
         try {
-            emailService.sendMineMessage(to, from, subject, htmlText);
+            htmlText = objectMapper.writeValueAsString(job);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            emailService.sendMineMessage(subject, htmlText);
         } catch (MessagingException e) {
             System.out.println("error sending mail");
         }
