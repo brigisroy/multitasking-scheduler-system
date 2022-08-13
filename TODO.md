@@ -21,3 +21,5 @@ Brigis:
 3. Edit for Task API
 4. ~~GET POST for Alert config API~~
 5. Return the start time and end time as a long value 
+6. Append {job_name}_task_{count} to the tasks
+   1. import_devices_task_1
