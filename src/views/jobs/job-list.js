@@ -71,17 +71,15 @@ class JobList extends React.Component {
     }
 
     handleDelete = (id) => {
-        Axios.delete(`${CONSTANTS.SERVER_URL}/api/job/` + id)
+        Axios.delete(`${CONSTANTS.SERVER_URL}/api/jobs/` + id)
             .then(res => {
                 console.log(res);
-                if (res.data === "success") {
-                    this.props.enqueueSnackbar(
-                        "Job Deleted Successfully",
-                        {
-                            variant: "success"
-                        }
-                    );
-                }
+                this.props.enqueueSnackbar(
+                    "Job Deleted Successfully",
+                    {
+                        variant: "success"
+                    }
+                );
                 this.getJobs()
             })
             .catch(err => {

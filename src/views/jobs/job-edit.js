@@ -136,15 +136,13 @@ class JobEdit extends React.Component {
         Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs/create`, payload)
             .then(res => {
                 console.log(res);
-                if (res.data === "success") {
-                    this.props.enqueueSnackbar(
-                        "Tasks successfully scheduled",
-                        {
-                            variant: "success"
-                        }
-                    );
-                    this.setState({ isJobCreationSuccess: true })
-                }
+                this.props.enqueueSnackbar(
+                    "Tasks successfully scheduled",
+                    {
+                        variant: "success"
+                    }
+                )
+                this.setState({ isJobCreationSuccess: true })
             })
             .catch(err => {
                 this.setState({ isSubmitBtnDisabled: false })

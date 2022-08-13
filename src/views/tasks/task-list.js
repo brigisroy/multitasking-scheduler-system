@@ -33,7 +33,7 @@ class TaskList extends React.Component {
                 let tasks = [];
                 res.data.forEach(task => {
                     if (!task.finish_datetime) {
-                        task.finish_datetime = task.start_datetime + ( task.exec_time_in_min * 60000)
+                        task.finish_datetime = task.start_datetime + (task.exec_time_in_min * 60000)
                     }
                     tasks.push(task)
                 })
@@ -54,14 +54,12 @@ class TaskList extends React.Component {
         Axios.delete(`${CONSTANTS.SERVER_URL}/api/task/` + id)
             .then(res => {
                 console.log(res);
-                if (res.data === "success") {
-                    this.props.enqueueSnackbar(
-                        "Task Deleted Successfully",
-                        {
-                            variant: "success"
-                        }
-                    );
-                }
+                this.props.enqueueSnackbar(
+                    "Task Deleted Successfully",
+                    {
+                        variant: "success"
+                    }
+                );
                 this.getTasks()
             })
             .catch(err => {
@@ -180,7 +178,7 @@ class TaskList extends React.Component {
 
         return (
             <>
-                <CommonHeader/>
+                <CommonHeader />
                 <Col className=" mt--7 order-xl-1" xl="12">
                     <Card className="bg-secondary shadow">
                         <CardHeader className="bg-white border-0">
