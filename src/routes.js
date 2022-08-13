@@ -44,23 +44,21 @@ var routes = [
   {
     path: "/create-job",
     name: "Schedule Job",
-    icon: "ni ni-bold-right text-green",
+    icon: "fa-regular fa-clock text-green",
     component: JobCreate,
     layout: "/admin",
   },
   {
     path: "/create-job-bulk",
     name: "Schedule Bulk Job",
-    icon: "ni ni-cloud-upload-96 text-green",
+    icon: "fa-solid fa-file-import text-indigo",
     component: JobCreateBulk,
     layout: "/admin",
   },
   {
     path: "/list-jobs",
     name: "List Jobs",
-    // icon: "fa-regular fa-list text-green",
-    // icon: "fa-regular fa-trash-can text-yellow",
-    icon: "ni ni-folder-17 text-yellow",
+    icon: "fa-solid fa-list-check text-yellow",
     component: JobList,
     layout: "/admin",
   },
@@ -70,6 +68,27 @@ var routes = [
     icon: "ni ni-calendar-grid-58 text-orange",
     component: JobListByDate,
     layout: "/admin",
-  }
+  },
+  {
+    path: "/list-tasks",
+    name: "List Tasks",
+    icon: "fa fa-solid fa-gears text-grey",
+    component: JobList,
+    layout: "/admin",
+  },
+  {
+    path: "/list-tasks-by-date",
+    name: "List Tasks by date",
+    icon: "ni ni-calendar-grid-58 text-blue",
+    component: JobList,
+    layout: "/admin",
+  },
+  {
+    path: "/alert-config",
+    name: "Alert config",
+    icon: "fa-regular fa-bell text-red",
+    component: JobList,
+    layout: "/admin",
+  },
 ];
 export default routes;
