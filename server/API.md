@@ -53,16 +53,24 @@ API: /api/job/ \
 METHOD: GET \
 PARAM: start_date=${epoch}&end_date=${epoch}
 
+# Mailer list
 \
-API: /api/alert_config \
+
+### Get Mailling list
+API: /api/alert \
 METHOD: GET
 
 \
-API: /api/alert_config
+
+### To Add Mail id to mailing list
+API: /api/alert?mailId=<mail_id>
 METHOD: POST
-BODY: {
-    "to_mail" : ["admin@hellfire.com", "dev@hellfire.com"] 
-}
+
+
+### To delete mail id from mailing list
+API: /api/alert/{id}
+METHOD: DELETE
+
 
 # task enopoints 
 

@@ -16,10 +16,12 @@ Arun J:
 1. Alert config
 
 Brigis:
-1. Filter for Tasks list with start_time (long) and finish_time (long) API
-2. Delete for Task with id API
-3. Edit for Task API
+1. ~~Filter for Tasks list with start_time (long) and finish_time (long) API~~
+2. ~~Delete for Task with id API~~
+3. ~~Edit for Task API~~
+   1. (done)need to update the job VIA jobs update api
 4. ~~GET POST for Alert config API~~
-5. Return the start time and end time as a long value 
-6. Append {job_name}_task_{count} to the tasks
-   1. import_devices_task_1
+5. ~~Return the start time and end time as a long value~~ 
+6. ~~Append {job_name}_task_{count} to the tasks~~
+   1. ~~import_devices_task_1~~
+7. Mail alert once the job is done 
