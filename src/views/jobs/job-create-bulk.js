@@ -133,7 +133,7 @@ class JobCreateBulk extends React.Component {
         }
 
         this.setState({ isSubmitBtnDisabled: true })
-        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs`, payload)
+        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs`, payload.jobs)
             .then(res => {
                 console.log(res);
                 if (res.data === "success") {
