@@ -47,12 +47,13 @@ public class EmailService {
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, "utf-8");
         List<String> mailingList = alertRepo.onlyMailIds();
         String[] toList = mailingList.toArray(new String[mailingList.size()]);
-        if (toList.length != 0) {
-            messageHelper.setFrom("dev@hellfire.com");
-            messageHelper.setTo(toList);
-            messageHelper.setSubject(subject);
-            messageHelper.setText(htmlText, true);
+        if (toList.length == 0) {
+            return;
         }
+        messageHelper.setFrom("dev@hellfire.com");
+        messageHelper.setTo(toList);
+        messageHelper.setSubject(subject);
+        messageHelper.setText(htmlText, true);
         javaMailSender.send(mimeMessage);
     }
 }
