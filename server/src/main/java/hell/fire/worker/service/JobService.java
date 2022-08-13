@@ -13,7 +13,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,6 +61,7 @@ public class JobService {
             long START_TIME = job.getStartDatetime();
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
+            int REQUIRED_CAPACITY = job.getRequiredCapacity();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
@@ -72,6 +72,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
+                task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
                 task.setJob(job);
                 taskList.add(task);
@@ -124,6 +125,8 @@ public class JobService {
             long START_TIME = job.getStartDatetime();
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
+            int REQUIRED_CAPACITY = job.getRequiredCapacity();
+
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
@@ -134,6 +137,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
+                task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
                 task.setJob(job);
                 taskList.add(task);

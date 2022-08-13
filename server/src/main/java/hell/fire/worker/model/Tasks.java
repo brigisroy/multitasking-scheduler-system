@@ -28,6 +28,8 @@ public class Tasks {
     @Column(columnDefinition = "enum('CREATED', 'STARTED', 'RUNNING', 'CANCELLED', 'STOPPED', 'COMPLETED')")
     @Enumerated(EnumType.STRING)
     private JobsStatus status;
+    @JsonProperty("required_capacity")
+    private int requiredCapacity;
     @CreationTimestamp
     private Date createAt;
 
