@@ -285,7 +285,7 @@ class JobCreate extends React.Component {
                                                 <Col lg="6">
                                                     <FormGroup>
                                                         <label className="form-control-label">
-                                                            Job End Datetime (Predicted)
+                                                            Job End Datetime
                                                         </label>
                                                         <br />
                                                         <InputGroup className="input-group-alternative">
