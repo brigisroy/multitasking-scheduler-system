@@ -23,7 +23,7 @@ public class Tasks {
     @JsonProperty("start_datetime")
     private Long startDatetime;
     private String value;
-    @JsonProperty("frequency_in_hr")
+    @JsonProperty("exec_time_in_min")
     private int execTimeInMin = 0;
     @Column(columnDefinition = "enum('CREATED', 'STARTED', 'RUNNING', 'CANCELLED', 'STOPPED', 'COMPLETED')")
     @Enumerated(EnumType.STRING)
