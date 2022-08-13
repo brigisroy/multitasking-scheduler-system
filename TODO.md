@@ -11,4 +11,4 @@ Brigis:
 1. Filter for Tasks list with start and end time API
 2. Delete for Task with id API
 3. Edit for Task API
-4. GET POST for Alert config API
+4. ~~GET POST for Alert config API~~
