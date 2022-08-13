@@ -109,8 +109,8 @@ public class JobService {
         return taskRepo.findAll();
     }
 
-    public List<Tasks> getAllTaskInRange(String startDate, String endDate) {
-        return jobsRepo.getAllJobsByRangeTime(startDate, endDate);
+    public List<Tasks> getAllTaskInRange(long startDate, long endDate) {
+        return taskRepo.getAllByRangeTime(startDate, endDate);
     }
 
     public String updateJob(Jobs job) {

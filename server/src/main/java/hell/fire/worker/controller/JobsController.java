@@ -43,7 +43,7 @@ public class JobsController {
     }
 
     @GetMapping("/jobs/range")
-    public ResponseEntity<Object> getTasksInRange(@RequestParam("start_date") String start_date, @RequestParam("end_date") String end_date) {
+    public ResponseEntity<Object> getTasksInRange(@RequestParam("start_date") long start_date, @RequestParam("end_date") long end_date) {
         return new ResponseEntity<>(jobService.getAllTaskInRange(start_date, end_date), HttpStatus.OK);
     }
 }

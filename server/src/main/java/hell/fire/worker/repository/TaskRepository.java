@@ -15,5 +15,5 @@ public interface TaskRepository extends JpaRepository<Tasks, Long> {
     List<Tasks> findAllByJobId(long id);
 
     @Query(value = "select * from task where start_datetime between ?1 and ?2", nativeQuery = true)
-    List<Tasks> getAllByRangeTime(String startTime, String endTime);
+    List<Tasks> getAllByRangeTime(long startTime, long endTime);
 }
