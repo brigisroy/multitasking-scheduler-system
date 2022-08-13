@@ -33,6 +33,7 @@ import JobCreate from "views/jobs/job-create";
 import JobListByDate from "views/jobs/job-list-by-date"
 import JobCreateBulk from "views/jobs/job-create-bulk";
 import AlertConfig from "views/alerts/alerts"
+import TaskList from "views/tasks/task-list";
 
 var routes = [
   {
@@ -74,7 +75,7 @@ var routes = [
     path: "/list-tasks",
     name: "List Tasks",
     icon: "fa fa-solid fa-gears text-grey",
-    component: JobList,
+    component: TaskList,
     layout: "/admin",
   },
   {
