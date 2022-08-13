@@ -74,14 +74,12 @@ class JobList extends React.Component {
         Axios.delete(`${CONSTANTS.SERVER_URL}/api/jobs/` + id)
             .then(res => {
                 console.log(res);
-                if (res.data === "success") {
-                    this.props.enqueueSnackbar(
-                        "Job Deleted Successfully",
-                        {
-                            variant: "success"
-                        }
-                    );
-                }
+                this.props.enqueueSnackbar(
+                    "Job Deleted Successfully",
+                    {
+                        variant: "success"
+                    }
+                );
                 this.getJobs()
             })
             .catch(err => {
@@ -95,42 +93,42 @@ class JobList extends React.Component {
             });
     }
 
-    getProgressBar = (start_datetime, finish_datetime) => {
-        let current_dateTime = new Date().valueOf();
-        let progress = 0.0;
-        let color = ""
-        // Completed
-        if (current_dateTime >= finish_datetime) {
-            progress = 100
-            // Haven't started yet
-        } else if (current_dateTime <= start_datetime) {
-            progress = 0
-            // In Progress
-        } else {
-            let exec_time_in_min = (finish_datetime - start_datetime) / 60000
-            // let ms_per_percent = exec_time_in_min / 100
-            let passed_time_in_min = (current_dateTime - start_datetime) / 60000
-            // progress = passed_time_in_min * ms_per_percent / exec_time_in_min / 100
-            progress = passed_time_in_min / exec_time_in_min * 100
-        }
+    // getProgressBar = (start_datetime, finish_datetime) => {
+    //     let current_dateTime = new Date().valueOf();
+    //     let progress = 0.0;
+    //     let color = ""
+    //     // Completed
+    //     if (current_dateTime >= finish_datetime) {
+    //         progress = 100
+    //         // Haven't started yet
+    //     } else if (current_dateTime <= start_datetime) {
+    //         progress = 0
+    //         // In Progress
+    //     } else {
+    //         let exec_time_in_min = (finish_datetime - start_datetime) / 60000
+    //         // let ms_per_percent = exec_time_in_min / 100
+    //         let passed_time_in_min = (current_dateTime - start_datetime) / 60000
+    //         // progress = passed_time_in_min * ms_per_percent / exec_time_in_min / 100
+    //         progress = passed_time_in_min / exec_time_in_min * 100
+    //     }
 
-        if (progress < 30) {
-            color = "danger"
-        } else if (progress < 70) {
-            color = "warning"
-        } else {
-            color = "success"
-        }
+    //     if (progress < 30) {
+    //         color = "danger"
+    //     } else if (progress < 70) {
+    //         color = "warning"
+    //     } else {
+    //         color = "success"
+    //     }
 
-        return (<>
-            <Progress
-                animated={progress != 100}
-                value={progress}
-                color={color}
-            />
-            {Math.round(progress * 100) / 100} %
-        </>)
-    }
+    //     return (<>
+    //         <Progress
+    //             animated={progress != 100}
+    //             value={progress}
+    //             color={color}
+    //         />
+    //         {Math.round(progress * 100) / 100} %
+    //     </>)
+    // }
 
     generateTableData = (rawData) => {
         const dataTable = []
@@ -139,15 +137,16 @@ class JobList extends React.Component {
                 row.name,
                 new Date(parseInt(row.start_datetime)).toLocaleString(),
                 new Date(parseInt(row.finish_datetime)).toLocaleString(),
-                row.required_capacity,
-                row.value,
-                Math.round((row.finish_datetime - row.start_datetime) / 60000),
-                this.getProgressBar(parseInt(row.start_datetime), parseInt(row.finish_datetime)),
+                // row.required_capacity,
+                // row.value,
+                // Math.round((row.finish_datetime - row.start_datetime) / 60000),
+                row.frequency_in_hr,
+                // this.getProgressBar(parseInt(row.start_datetime), parseInt(row.finish_datetime)),
                 <>
-                    <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/job/edit?id=" + row._id }}>
+                    <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/job/edit?id=" + row.id }}>
                         <i className="fa-solid fa-pen-to-square text-orange"></i>
                     </Button >
-                    <Button className="btn-icon btn-2 " size="sm" type="button" onClick={() => { this.handleDelete(row._id) }}>
+                    <Button className="btn-icon btn-2 " size="sm" type="button" onClick={() => { this.handleDelete(row.id) }}>
                         <i className="fa-regular fa-trash-can text-red"></i>
                     </Button>
                 </>
@@ -158,7 +157,7 @@ class JobList extends React.Component {
         })
 
         // //To Show the most recent tranaction on Top
-        // dataTable.reverse();
+        dataTable.reverse();
 
         return dataTable
     }
@@ -174,18 +173,21 @@ class JobList extends React.Component {
             {
                 name: "finish_datetime", label: "Finish Date Time"
             },
+            // {
+            //     name: "required_capacity", label: "Capacity"
+            // },
+            // {
+            //     name: "value", label: "Value"
+            // },
+            // {
+            //     name: "exec_time_in_min", label: "Execution Time (mins)"
+            // },
             {
-                name: "required_capacity", label: "Capacity"
+                name: "frequency_in_hr", label: "Frequency (hrs)"
             },
-            {
-                name: "value", label: "Value"
-            },
-            {
-                name: "exec_time_in_min", label: "Execution Time (mins)"
-            },
-            {
-                name: "progress", label: "Progress"
-            },
+            // {
+            //     name: "progress", label: "Progress"
+            // },
             {
                 name: "action", label: "Action",
                 options: {
