@@ -68,7 +68,7 @@ public class JobService {
             for (int i = 0; i <= count; i++) {
                 countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
                 Tasks task = new Tasks();
-                task.setName(JOB_NAME);
+                task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
                 task.setStartDatetime(new Date(countTime));
@@ -111,5 +111,52 @@ public class JobService {
         String startTimeInIso = Instant.parse(String.valueOf(startDate)).toString();
         String endTimeInIso = Instant.parse(String.valueOf(endDate)).toString();
         return taskRepo.getAllByRangeTime(startTimeInIso, endTimeInIso);
+    }
+
+    public String updateJob(Jobs job) {
+        if (jobsRepo.existsById(job.getId())) {
+            List<Tasks> tasks = taskRepo.findAllByJobId(job.getId());
+            taskRepo.deleteAll(tasks);
+            List<Tasks> taskList = new ArrayList<>();
+
+            String JOB_NAME = job.getName();
+            String JOB_VALUE = job.getValue();
+            long JOB_ID = job.getId();
+            long START_TIME = job.getStartDatetime().getTime();
+            long END_TIME = job.getFinishDatetime().getTime();
+            long FREQUENCY_IN_HR = job.getFrequencyInHr();
+            long timeDifference = END_TIME - START_TIME;
+            long toHrs = timeDifference / (60 * 60 * 1000);
+            int count = Math.round(toHrs / FREQUENCY_IN_HR);
+            long countTime = START_TIME;
+            for (int i = 0; i <= count; i++) {
+                countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
+                Tasks task = new Tasks();
+                task.setName(JOB_NAME + " task " + i + 1);
+                task.setValue(JOB_VALUE);
+                task.setStatus(JobsStatus.CREATED);
+                task.setStartDatetime(new Date(countTime));
+                task.setJob(job);
+                taskList.add(task);
+            }
+            taskRepo.saveAll(taskList);
+            job.setStatus(JobsStatus.STARTED);
+            jobsRepo.save(job);
+            return "Job has been update successfully !";
+        } else {
+            return "Invalid input !";
+        }
+
+    }
+
+    public String deleteJob(long jobId) {
+        if (jobsRepo.existsById(jobId)) {
+            List<Tasks> tasks = taskRepo.findAllByJobId(jobId);
+            taskRepo.deleteAll(tasks);
+            jobsRepo.deleteById(jobId);
+            return "Job has been deleted successfully !";
+        } else {
+            return "Invalid input !";
+        }
     }
 }
