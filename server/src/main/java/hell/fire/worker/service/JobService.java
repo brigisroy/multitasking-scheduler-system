@@ -52,7 +52,8 @@ public class JobService {
 
     @Scheduled(fixedRateString = "PT1M")
     public void createTasks() {
-        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin();
+        Long now = new Date().getTime();
+        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin(now);
         List<Tasks> taskList = new ArrayList<>();
         jobs.forEach(job -> {
             String JOB_NAME = job.getName();
@@ -65,10 +66,10 @@ public class JobService {
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
             long countTime = START_TIME;
-            for (int i = 0; i <= count; i++) {
+            for (int i = 1; i <= count; i++) {
                 countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
                 Tasks task = new Tasks();
-                task.setName(JOB_NAME + " task " + i + 1);
+                task.setName(JOB_NAME + " task " + i);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
                 task.setStartDatetime(countTime);
@@ -107,10 +108,8 @@ public class JobService {
         return taskRepo.findAll();
     }
 
-    public List<Tasks> getAllTaskInRange(long startDate, long endDate) {
-        String startTimeInIso = Instant.parse(String.valueOf(startDate)).toString();
-        String endTimeInIso = Instant.parse(String.valueOf(endDate)).toString();
-        return taskRepo.getAllByRangeTime(startTimeInIso, endTimeInIso);
+    public List<Tasks> getAllTaskInRange(String startDate, String endDate) {
+        return jobsRepo.getAllJobsByRangeTime(startDate, endDate);
     }
 
     public String updateJob(Jobs job) {
