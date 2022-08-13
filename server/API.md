@@ -63,3 +63,17 @@ METHOD: POST
 BODY: {
     "to_mail" : ["admin@hellfire.com", "dev@hellfire.com"] 
 }
+
+# task enopoints 
+
+### Get All tasks 
+
+API : /api/task \
+METHOD: GET
+
+### Delete task
+
+API : /api/task/{task_id} \
+METHOD: DELETE
+
+> no update queries in task
