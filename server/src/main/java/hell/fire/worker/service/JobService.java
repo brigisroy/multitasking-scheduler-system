@@ -8,18 +8,17 @@ import hell.fire.worker.model.Tasks;
 import hell.fire.worker.model.eumus.JobsStatus;
 import hell.fire.worker.repository.JobsRepository;
 import hell.fire.worker.repository.TaskRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
-@Slf4j
 public class JobService {
 
     @Autowired
@@ -61,13 +60,10 @@ public class JobService {
             long JOB_ID = job.getId();
             long START_TIME = job.getStartDatetime().getTime();
             long END_TIME = job.getFinishDatetime().getTime();
-            log.info("Start time -> {} , End time -> {}", START_TIME, END_TIME);
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
-            log.info("TO hrs -> {}", toHrs);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
-            log.info("count -> {}", count);
             long countTime = START_TIME;
             for (int i = 0; i <= count; i++) {
                 countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
@@ -76,7 +72,6 @@ public class JobService {
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
                 task.setStartDatetime(new Date(countTime));
-                log.info("Setting start time E ->{} , data ff -> {}", countTime, new Date(countTime));
                 task.setJob(job);
                 taskList.add(task);
             }
@@ -89,7 +84,6 @@ public class JobService {
 
 
     public List<Tasks> getTaskByJobId(long id) {
-        log.info("job id  -> {} ", id);
         return taskRepo.findAllByJobId(id);
     }
 
@@ -111,5 +105,11 @@ public class JobService {
 
     public List<Tasks> getTasksAll() {
         return taskRepo.findAll();
+    }
+
+    public List<Tasks> getAllTaskInRange(long startDate, long endDate) {
+        String startTimeInIso = Instant.parse(String.valueOf(startDate)).toString();
+        String endTimeInIso = Instant.parse(String.valueOf(endDate)).toString();
+        return taskRepo.getAllByRangeTime(startTimeInIso, endTimeInIso);
     }
 }
