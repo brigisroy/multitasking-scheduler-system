@@ -57,23 +57,25 @@ class DateSearch extends React.Component {
         }
         let from_date_min = new Date(from_date).setHours(0, 0, 0, 0)
         let to_date_max = new Date(to_date).setHours(23, 59, 59, 99)
-        Axios.get(link + `?start_datetime=${from_date_min}&finish_datetime=${to_date_max}`)
-            .then(res => {
-                let filtered_tasks = [];
-                res.data.forEach(trans => {
-                    filtered_tasks.push(trans)
-                })
-                this.setState({ filtered_tasks })
-            })
-            .catch(err => {
-                console.log(err)
-                this.props.enqueueSnackbar(
-                    "Something went wrong",
-                    {
-                        variant: "warning"
-                    }
-                );
-            })
+        this.setState({from_date:from_date_min})
+        this.setState({to_date:to_date_max})
+        // Axios.get(link + `?start_datetime=${from_date_min}&finish_datetime=${to_date_max}`)
+        //     .then(res => {
+        //         let filtered_tasks = [];
+        //         res.data.forEach(trans => {
+        //             filtered_tasks.push(trans)
+        //         })
+        //         this.setState({ filtered_tasks })
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //         this.props.enqueueSnackbar(
+        //             "Something went wrong",
+        //             {
+        //                 variant: "warning"
+        //             }
+        //         );
+        //     })
 
     }
 
