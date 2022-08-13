@@ -26,7 +26,7 @@ import { Link, Redirect } from "react-router-dom";
 class JobCreateBulk extends React.Component {
 
     state = {
-        tasks: [
+        jobs: [
             // {
             //     name: "",
             //     start_datetime: "", // new Date().valueOf(),
@@ -44,22 +44,22 @@ class JobCreateBulk extends React.Component {
     // ======= Handler functions start =======
 
     handleSubmit = e => {
-        console.log(this.state.tasks)
+        console.log(this.state.jobs)
         let payload = {};
-        payload.tasks = this.state.tasks;
+        payload.jobs = this.state.jobs;
 
-        if (payload.tasks.length === 0) {
-            this.props.enqueueSnackbar("Atleast 1 Task needed", {
+        if (payload.jobs.length === 0) {
+            this.props.enqueueSnackbar("Atleast 1 Job needed", {
                 variant: "error"
             });
             return;
         }
 
         let stopFlag = false;
-        payload.tasks.map((task, index) => {
-            if (!task.name) {
+        payload.jobs.map((job, index) => {
+            if (!job.name) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Name field is empty`,
+                    `Job ${index + 1}'s Name field is empty`,
                     {
                         variant: "error"
                     }
@@ -68,32 +68,9 @@ class JobCreateBulk extends React.Component {
                 return null;
             }
 
-            if (!task.start_datetime) {
+            if (!job.start_datetime) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Start date time field is empty`,
-                    {
-                        variant: "error"
-                    }
-                );
-                stopFlag = true;
-                return null;
-            }
-
-
-            if (!task.finish_datetime) {
-                this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Finish date time field is empty`,
-                    {
-                        variant: "error"
-                    }
-                );
-                stopFlag = true;
-                return null;
-            }
-
-            if (task.required_capacity < 1 || task.required_capacity > 80) {
-                this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Required capacity should be within 1 to 80`,
+                    `Job ${index + 1}'s Start date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -103,9 +80,9 @@ class JobCreateBulk extends React.Component {
             }
 
 
-            if (task.value < 1 || task.value > 100) {
+            if (!job.finish_datetime) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s value should be within 1 to 100`,
+                    `Job ${index + 1}'s Finish date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -114,9 +91,32 @@ class JobCreateBulk extends React.Component {
                 return null;
             }
 
-            if (task.frequency_in_hr === "") {
+            if (job.required_capacity < 1 || job.required_capacity > 80) {
                 this.props.enqueueSnackbar(
-                    `Task ${index + 1}'s Frequency field is empty`,
+                    `Job ${index + 1}'s Required capacity should be within 1 to 80`,
+                    {
+                        variant: "error"
+                    }
+                );
+                stopFlag = true;
+                return null;
+            }
+
+
+            if (job.value < 1 || job.value > 100) {
+                this.props.enqueueSnackbar(
+                    `Job ${index + 1}'s value should be within 1 to 100`,
+                    {
+                        variant: "error"
+                    }
+                );
+                stopFlag = true;
+                return null;
+            }
+
+            if (job.frequency_in_hr === "") {
+                this.props.enqueueSnackbar(
+                    `Job ${index + 1}'s Frequency field is empty`,
                     {
                         variant: "error"
                     }
@@ -138,7 +138,7 @@ class JobCreateBulk extends React.Component {
                 console.log(res);
                 if (res.data === "success") {
                     this.props.enqueueSnackbar(
-                        "Tasks successfully scheduled",
+                        "Jobs successfully scheduled",
                         {
                             variant: "success"
                         }
@@ -165,7 +165,7 @@ class JobCreateBulk extends React.Component {
             header: true,
             skipEmptyLines: true,
             complete: function (results) {
-                this.setState({ tasks: results.data })
+                this.setState({ jobs: results.data })
             }.bind(this),
         });
     }
@@ -183,7 +183,7 @@ class JobCreateBulk extends React.Component {
                                 <CardHeader className="bg-white border-0">
                                     <Row className="align-items-center">
                                         <Col xs="8">
-                                            <h3 className="mb-0">Bulk Task Schedule Import</h3>
+                                            <h3 className="mb-0">Bulk Job Schedule Import</h3>
                                         </Col>
                                     </Row>
                                 </CardHeader>
