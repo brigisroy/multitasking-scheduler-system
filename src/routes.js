@@ -37,7 +37,7 @@ var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "ni ni-tv-2 text-indigo",
     component: Index,
     layout: "/admin",
   },
@@ -64,7 +64,7 @@ var routes = [
   },
   {
     path: "/list-jobs-by-date",
-    name: "List Jobs by date",
+    name: "List Jobs By Date",
     icon: "ni ni-calendar-grid-58 text-orange",
     component: JobListByDate,
     layout: "/admin",
@@ -78,14 +78,14 @@ var routes = [
   },
   {
     path: "/list-tasks-by-date",
-    name: "List Tasks by date",
+    name: "List Tasks By Date",
     icon: "ni ni-calendar-grid-58 text-blue",
     component: JobList,
     layout: "/admin",
   },
   {
     path: "/alert-config",
-    name: "Alert config",
+    name: "Alert Config",
     icon: "fa-regular fa-bell text-red",
     component: JobList,
     layout: "/admin",
