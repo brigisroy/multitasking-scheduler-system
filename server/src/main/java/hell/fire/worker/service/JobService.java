@@ -58,8 +58,8 @@ public class JobService {
             String JOB_NAME = job.getName();
             String JOB_VALUE = job.getValue();
             long JOB_ID = job.getId();
-            long START_TIME = job.getStartDatetime().getTime();
-            long END_TIME = job.getFinishDatetime().getTime();
+            long START_TIME = job.getStartDatetime();
+            long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
@@ -71,7 +71,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
-                task.setStartDatetime(new Date(countTime));
+                task.setStartDatetime(countTime);
                 task.setJob(job);
                 taskList.add(task);
             }
@@ -122,8 +122,8 @@ public class JobService {
             String JOB_NAME = job.getName();
             String JOB_VALUE = job.getValue();
             long JOB_ID = job.getId();
-            long START_TIME = job.getStartDatetime().getTime();
-            long END_TIME = job.getFinishDatetime().getTime();
+            long START_TIME = job.getStartDatetime();
+            long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
@@ -135,7 +135,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
-                task.setStartDatetime(new Date(countTime));
+                task.setStartDatetime(countTime);
                 task.setJob(job);
                 taskList.add(task);
             }

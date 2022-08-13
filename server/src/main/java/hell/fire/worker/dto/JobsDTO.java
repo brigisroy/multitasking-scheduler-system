@@ -9,9 +9,9 @@ import java.util.Date;
 public class JobsDTO {
     private String name;
     @JsonProperty("start_datetime")
-    private Date startDatetime;
+    private Long startDatetime;
     @JsonProperty("finish_datetime")
-    private Date finishDatetime;
+    private Long finishDatetime;
     private String value;
     @JsonProperty("required_capacity")
     private int requiredCapacity;
