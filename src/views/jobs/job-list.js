@@ -16,9 +16,6 @@ import Axios from "axios";
 import { withSnackbar } from "notistack";
 import CONSTANTS from "../../variables/general.js"
 import CommonHeader from "../../components/Headers/CommonHeader.js";
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CircularProgress } from "@mui/material";
 
 class JobList extends React.Component {
 
@@ -31,46 +28,46 @@ class JobList extends React.Component {
     }
 
     getJobs() {
-        let tasks = [
-            { "name": "Import users sample", "start_datetime": "1659848651000", "finish_datetime": "1659970800000", "value": "50", "required_capacity": "10", "frequency_in_hr": "2", "exec_time_in_min": "80" },
-            { "name": "Import devices sample", "start_datetime": "1659834251000", "finish_datetime": "1659909851000", "value": "40", "required_capacity": "40", "frequency_in_hr": "1", "exec_time_in_min": "30" },
-            {
-                exec_time_in_min: "120",
-                finish_datetime: "1659884400000",
-                frequency_in_hr: "2",
-                name: "Clean S1 cache",
-                required_capacity: "12",
-                start_datetime: "1659873600000",
-                value: "11"
-            },
-            {
-                exec_time_in_min: "120",
-                finish_datetime: "1659874400000",
-                frequency_in_hr: "2",
-                name: "Clean S2 cache",
-                required_capacity: "12",
-                start_datetime: "1659873600000",
-                value: "11"
-            },
-        ]
-        this.setState({ tasks })    //TODO REMOVE
-        // Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/`, {})
-        //     .then(res => {
-        //         let tasks = [];
-        //         res.data.forEach(trans => {
-        //             tasks.push(trans)
-        //         })
-        //         this.setState({ tasks })
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //         this.props.enqueueSnackbar(
-        //             "Something went wrong",
-        //             {
-        //                 variant: "warning"
-        //             }
-        //         );
-        //     })
+        // let tasks = [
+        //     { "name": "Import users sample", "start_datetime": "1659848651000", "finish_datetime": "1659970800000", "value": "50", "required_capacity": "10", "frequency_in_hr": "2", "exec_time_in_min": "80" },
+        //     { "name": "Import devices sample", "start_datetime": "1659834251000", "finish_datetime": "1659909851000", "value": "40", "required_capacity": "40", "frequency_in_hr": "1", "exec_time_in_min": "30" },
+        //     {
+        //         exec_time_in_min: "120",
+        //         finish_datetime: "1659884400000",
+        //         frequency_in_hr: "2",
+        //         name: "Clean S1 cache",
+        //         required_capacity: "12",
+        //         start_datetime: "1659873600000",
+        //         value: "11"
+        //     },
+        //     {
+        //         exec_time_in_min: "120",
+        //         finish_datetime: "1659874400000",
+        //         frequency_in_hr: "2",
+        //         name: "Clean S2 cache",
+        //         required_capacity: "12",
+        //         start_datetime: "1659873600000",
+        //         value: "11"
+        //     },
+        // ]
+        // this.setState({ tasks })    //TODO REMOVE
+        Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/`)
+            .then(res => {
+                let tasks = [];
+                res.data.forEach(task => {
+                    tasks.push(task)
+                })
+                this.setState({ tasks })
+            })
+            .catch(err => {
+                console.log(err)
+                this.props.enqueueSnackbar(
+                    "Something went wrong",
+                    {
+                        variant: "warning"
+                    }
+                );
+            })
     }
 
     handleDelete = (id) => {

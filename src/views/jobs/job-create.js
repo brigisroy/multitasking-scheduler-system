@@ -135,7 +135,7 @@ class JobCreate extends React.Component {
         }
 
         this.setState({ isSubmitBtnDisabled: true })
-        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs/create`, payload)
+        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs`, payload)
             .then(res => {
                 console.log(res);
                 if (res.data === "success") {
