@@ -32,6 +32,9 @@ class TaskList extends React.Component {
             .then(res => {
                 let tasks = [];
                 res.data.forEach(task => {
+                    if (!task.finish_datetime) {
+                        task.finish_datetime = task.start_datetime + ( task.exec_time_in_min * 60000)
+                    }
                     tasks.push(task)
                 })
                 this.setState({ tasks })
@@ -121,10 +124,10 @@ class TaskList extends React.Component {
                 Math.round((row.finish_datetime - row.start_datetime) / 60000),
                 this.getProgressBar(parseInt(row.start_datetime), parseInt(row.finish_datetime)),
                 <>
-                    <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/job/edit?id=" + row._id }}>
+                    <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/task/edit?id=" + row.id }}>
                         <i className="fa-solid fa-pen-to-square text-orange"></i>
                     </Button >
-                    <Button className="btn-icon btn-2 " size="sm" type="button" onClick={() => { this.handleDelete(row._id) }}>
+                    <Button className="btn-icon btn-2 " size="sm" type="button" onClick={() => { this.handleDelete(row.id) }}>
                         <i className="fa-regular fa-trash-can text-red"></i>
                     </Button>
                 </>
@@ -135,7 +138,7 @@ class TaskList extends React.Component {
         })
 
         // //To Show the most recent tranaction on Top
-        // dataTable.reverse();
+        dataTable.reverse();
 
         return dataTable
     }
