@@ -38,6 +38,10 @@ class AlertConfig extends React.Component {
     }
 
     componentDidMount() {
+        this.getAlerts()
+    }
+
+    getAlerts() {
         Axios.get(`${CONSTANTS.SERVER_URL}/api/alert/`)
             .then(res => {
                 console.log(res);
@@ -76,6 +80,8 @@ class AlertConfig extends React.Component {
                         variant: "success"
                     }
                 );
+                this.setState({ to_mail: [] });
+                this.getAlerts()
             })
             .catch(err => {
                 console.log(err)
@@ -170,7 +176,7 @@ class AlertConfig extends React.Component {
                                         <Col lg="6">
                                             <FormGroup>
                                                 <label className="form-control-label">
-                                                    Recipient mails
+                                                    Add Recipient mails
                                                 </label>
                                                 <br />
                                                 <Input
