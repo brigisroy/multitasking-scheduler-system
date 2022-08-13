@@ -29,13 +29,22 @@ public class JobsController {
         return new ResponseEntity<>(jobService.createJob(jobs), HttpStatus.OK);
     }
 
+    @PutMapping("/jobs")
+    public ResponseEntity<String> updateJob(@RequestBody Jobs job){
+        return new ResponseEntity<>(jobService.updateJob(job),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/jobs/{id}")
+    public ResponseEntity<String> updateJob(@PathVariable long job){
+        return new ResponseEntity<>(jobService.deleteJob(job),HttpStatus.OK);
+    }
     @GetMapping("/jobs/{id}")
     public ResponseEntity<Object> getTaskByJobId(@PathVariable long id) {
         return new ResponseEntity<>(jobService.getTaskByJobId(id), HttpStatus.OK);
     }
 
     @GetMapping("/jobs/range")
-    public ResponseEntity<Object> getTasksInRange(@RequestParam("start_date") long start_date, @RequestParam("end_date") long end_date) {
+    public ResponseEntity<Object> getTasksInRange(@RequestParam("start_date") String start_date, @RequestParam("end_date") String end_date) {
         return new ResponseEntity<>(jobService.getAllTaskInRange(start_date, end_date), HttpStatus.OK);
     }
 }

@@ -22,9 +22,9 @@ public class Jobs {
     private Long id;
     private String name;
     @JsonProperty("start_datetime")
-    private Date startDatetime;
+    private Long startDatetime;
     @JsonProperty("finish_datetime")
-    private Date finishDatetime;
+    private Long finishDatetime;
     private String value;
     @JsonProperty("required_capacity")
     private int requiredCapacity;
