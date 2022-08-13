@@ -8,14 +8,13 @@ Arun J:
 1. ~~Job create~~
 1. ~~Create Bulk Job~~
 1. ~~List Job~~
-1. List jobs based on start and end Filter
 2. List tasks based on start and end filter
 1. Edit job
 1. Delete job
-1. List tasks
+~~1. List tasks~~
 1. Edit tasks
-1. Delete tasks
-1. Alert config
+~~1. Delete tasks~~
+~~1. Alert config~~
 
 Brigis:
 1. ~~Filter for Tasks list with start_time (long) and finish_time (long) API~~
