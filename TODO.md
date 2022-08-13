@@ -12,3 +12,4 @@ Brigis:
 2. Delete for Task with id API
 3. Edit for Task API
 4. ~~GET POST for Alert config API~~
+5. Return the start time and end time as a long value 
