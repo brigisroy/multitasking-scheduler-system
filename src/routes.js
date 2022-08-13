@@ -32,6 +32,7 @@ import JobList from "views/jobs/job-list";
 import JobCreate from "views/jobs/job-create";
 import JobListByDate from "views/jobs/job-list-by-date"
 import JobCreateBulk from "views/jobs/job-create-bulk";
+import AlertConfig from "views/alerts/alerts"
 
 var routes = [
   {
@@ -87,7 +88,7 @@ var routes = [
     path: "/alert-config",
     name: "Alert Config",
     icon: "fa-regular fa-bell text-red",
-    component: JobList,
+    component: AlertConfig,
     layout: "/admin",
   },
 ];
