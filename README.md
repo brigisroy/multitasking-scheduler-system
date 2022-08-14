@@ -18,17 +18,17 @@ This web application which can be used to schedule, manage and monitor jobs effi
 4. Install Java 11 and maven (mvm)
 
 # To start client:
-Go to multi-task-scheduler 
+> cd multi-task-scheduler 
 > npm i --legacy-peer-deps \
 > npm start
 
 
 # To start mysql server 
-> cd db \
+> cd multi-task-scheduler/server/src/db \
 > docker compose up
 
 # To start server:
-Go to multi-task-scheduler/server
+> cd multi-task-scheduler/server
 > mvn clean install \
 > cd target \
 > java -jar worker-1.jar
