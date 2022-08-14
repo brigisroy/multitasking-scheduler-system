@@ -10,6 +10,14 @@ A multitasking scheduler system, which can execute tasks/jobs in parallel at a c
 ## Solution
 This web application which can be used to schedule, manage and monitor jobs efficiently. This application is built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
 
+## Tech Stack
+React.js
+Spring Boot
+Docker
+Mysql
+Jenkins
+Maven
+Mailing with mailtrap.io's API
 
 # Prerequistites:
 1. Install Node.js
