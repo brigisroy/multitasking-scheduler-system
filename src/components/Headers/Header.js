@@ -1,6 +1,17 @@
 /*!
 
 =========================================================
+Team Hell Fire's Multi tasking scheduler system
+=========================================================
+
+* Coded by Arun J & Brigis Roy
+
+=========================================================
+
+*/
+/*!
+
+=========================================================
 * Argon Dashboard React - v1.2.1
 =========================================================
 
@@ -16,10 +27,62 @@
 
 */
 
+import Axios from "axios";
 // reactstrap components
+import { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import CONSTANTS from "../../variables/general.js"
 
 const Header = () => {
+
+  const [tasks, setTasks] = useState([]);
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    getTasks()
+    getJobs()
+  }, []);
+
+  const getTasks = () => {
+    Axios.get(`${CONSTANTS.SERVER_URL}/api/task/`)
+      .then(res => {
+        let tasks = [];
+        res.data.forEach(task => {
+          tasks.push(task)
+        })
+        setTasks(tasks)
+      })
+      .catch(err => {
+        console.log(err)
+        this.props.enqueueSnackbar(
+          "Something went wrong",
+          {
+            variant: "warning"
+          }
+        );
+      })
+  }
+
+  const getJobs = () => {
+    Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/`)
+        .then(res => {
+            let jobs = [];
+            res.data.forEach(job => {
+              jobs.push(job)
+            })
+            setJobs(jobs)
+        })
+        .catch(err => {
+            console.log(err)
+            this.props.enqueueSnackbar(
+                "Something went wrong",
+                {
+                    variant: "warning"
+                }
+            );
+        })
+}
+
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -39,7 +102,7 @@ const Header = () => {
                           Jobs scheduled
                         </CardTitle>
                         <span className="h2 font-weight-bold mb-0">
-                          1
+                          {jobs.length}
                         </span>
                       </div>
                       <Col className="col-auto">
@@ -68,7 +131,7 @@ const Header = () => {
                         >
                           Tasks count
                         </CardTitle>
-                        <span className="h2 font-weight-bold mb-0">64</span>
+                        <span className="h2 font-weight-bold mb-0">{tasks.length}</span>
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
