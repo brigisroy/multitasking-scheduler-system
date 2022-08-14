@@ -9,12 +9,10 @@ import hell.fire.worker.model.eumus.JobsStatus;
 import hell.fire.worker.repository.JobsRepository;
 import hell.fire.worker.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,6 +43,7 @@ public class JobService {
             jobs.add(job);
         });
         List<Jobs> savedJobs = jobsRepo.saveAll(jobs);
+        triggerMailList(savedJobs);
         savedJobs.forEach(job -> {
             String JOB_NAME = job.getName();
             String JOB_VALUE = job.getValue();
@@ -53,7 +52,7 @@ public class JobService {
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             int REQUIRED_CAPACITY = job.getRequiredCapacity();
-            int EXEC_TIME_IN_MIN =job.getExecTimeInMin();
+            int EXEC_TIME_IN_MIN = job.getExecTimeInMin();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
@@ -72,11 +71,11 @@ public class JobService {
             }
             job.setStatus(JobsStatus.STARTED);
             jobsRepo.save(job);
-            triggerMail(job);
         });
         taskRepo.saveAll(taskList);
         return savedJobs;
     }
+
 
     public List<Jobs> getAllJobs() {
         return jobsRepo.findAll();
@@ -138,6 +137,54 @@ public class JobService {
         }
     }
 
+    private void triggerMailList(List<Jobs> jobs) {
+//        {
+//            "id":4, "name":"heloo", "value":"100", "status":"STARTED", "createAt":1660468993720, "start_datetime":
+//            1660501800000, "finish_datetime":1660588200000, "required_capacity":50, "frequency_in_hr":
+//            5, "exec_time_in_min":40
+//        }
+        String subject = "Status Update MTS";
+
+        StringBuilder table = new StringBuilder();
+
+        jobs.forEach(job -> {
+            table.append("<tr>" +
+                    "<td>" + job.getName() + "</td>" +
+                    "<td>" + job.getValue() + "</td>" +
+                    "<td>" + job.getStatus() + "</td>" +
+                    "<td>" + job.getStartDatetime() + "</td>" +
+                    "<td>" + job.getFinishDatetime() + "</td>" +
+                    "<td>" + job.getRequiredCapacity() + "</td>" +
+                    "<td>" + job.getFrequencyInHr() + "</td>" +
+                    " </tr>\n");
+        });
+
+
+        String htmlText = "<style>\n" +
+                "  table, th, td {\n" +
+                "    border: 1px solid black;\n" +
+                "    border-collapse: collapse;\n" +
+                "    text-align:center;}" +
+                "\n</style>" +
+                "  \n<table>\n" +
+                "  <tr>\n" +
+                "    <th>Job Name</th>\n" +
+                "    <th>Value</th>\n" +
+                "    <th>Status</th>\n" +
+                "    <th>Start time</th>\n" +
+                "    <th>Finish Time</th>\n" +
+                "    <th>Required Capacity</th>\n" +
+                "    <th>Frequency in Hours</th>\n" +
+                "  </tr>\n" +
+                table.toString() +
+                "</table>";
+        try {
+            emailService.sendMineMessage(subject, htmlText);
+        } catch (MessagingException e) {
+            System.out.println("error sending mail");
+        }
+    }
+
     public List<Tasks> getTasksAll() {
         return taskRepo.findAll();
     }
@@ -159,7 +206,7 @@ public class JobService {
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             int REQUIRED_CAPACITY = job.getRequiredCapacity();
-            int EXEC_TIME_IN_MIN =job.getExecTimeInMin();
+            int EXEC_TIME_IN_MIN = job.getExecTimeInMin();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
