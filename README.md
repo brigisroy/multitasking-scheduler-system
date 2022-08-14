@@ -33,6 +33,7 @@ Go to multi-task-scheduler/server
 > java -jar worker-1.jar
 
 
+![screenshot](https://user-images.githubusercontent.com/43792122/184533468-37229254-c924-46c8-bded-38fb380ed16c.png)
 
 ![Screenshot 2022-08-14 161452](https://user-images.githubusercontent.com/43792122/184533379-85e4e85f-01c0-4a6b-91ff-d9cd00ba35c0.png)
 ![Screenshot 2022-08-14 161727](https://user-images.githubusercontent.com/43792122/184533382-b01110b0-72f8-403c-ac27-faa462c6f4d4.png)
