@@ -5,6 +5,7 @@ This web application can be used to schedule, manage and monitor jobs efficientl
 ## Tech Stack
 * React.js
 * Spring Boot
+* Quartz Scheduler
 * Docker
 * Mysql
 * Maven
