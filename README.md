@@ -34,7 +34,7 @@ This web application can be used to schedule, manage and monitor jobs efficientl
 > java -jar worker-1.jar
 
 
-## Images 
+# Screenshots:
 
 ![DashBoard](https://user-images.githubusercontent.com/43792122/184533468-37229254-c924-46c8-bded-38fb380ed16c.png)
 
