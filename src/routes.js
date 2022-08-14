@@ -40,7 +40,7 @@ var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-indigo",
+    icon: "ni ni-tv-2 text-orange",
     component: Index,
     layout: "/admin",
   },
@@ -54,14 +54,14 @@ var routes = [
   {
     path: "/create-job-bulk",
     name: "Schedule Bulk Job",
-    icon: "fa-solid fa-file-import text-yellow",
+    icon: "fa-solid fa-file-import text-indigo",
     component: JobCreateBulk,
     layout: "/admin",
   },
   {
     path: "/list-jobs",
     name: "List Job Schedules",
-    icon: "fa-solid fa-list-check text-orange",
+    icon: "fa-solid fa-list-check text-yellow",
     component: JobList,
     layout: "/admin",
   },
