@@ -35,7 +35,13 @@ class TaskList extends React.Component {
                     if (!task.finish_datetime) {
                         task.finish_datetime = task.start_datetime + (task.exec_time_in_min * 60000)
                     }
-                    tasks.push(task)
+                    if (this.props.start_datetime && this.props.finish_datetime) {
+                        if (task.start_datetime >= this.props.start_datetime && task.start_datetime <= this.props.finish_datetime) {
+                            tasks.push(task)
+                        }
+                    } else {
+                        tasks.push(task)
+                    }
                 })
                 this.setState({ tasks })
             })

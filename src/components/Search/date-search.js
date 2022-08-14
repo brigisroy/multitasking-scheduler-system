@@ -27,14 +27,16 @@ class DateSearch extends React.Component {
     state = {
         from_date: "",
         to_date: "",
-        filtered_tasks: [],
+        from_date_min: "",
+        to_date_max: "",
+        show_filtered_tasks: false,
         isValidFromDate: false,
         isValidToDate: false,
     }
 
-    getdata = e => {
+    handleFilterDate = e => {
         // Module Specific Check
-        var link = this.props.submitLink;
+        // var link = this.props.submitLink;
         const from_date = this.state.from_date;
         const to_date = this.state.to_date;
         if (!from_date || !to_date) {
@@ -57,8 +59,9 @@ class DateSearch extends React.Component {
         }
         let from_date_min = new Date(from_date).setHours(0, 0, 0, 0)
         let to_date_max = new Date(to_date).setHours(23, 59, 59, 99)
-        this.setState({from_date:from_date_min})
-        this.setState({to_date:to_date_max})
+        this.setState({from_date_min})
+        this.setState({to_date_max})
+        this.setState({show_filtered_tasks:true})
         // Axios.get(link + `?start_datetime=${from_date_min}&finish_datetime=${to_date_max}`)
         //     .then(res => {
         //         let filtered_tasks = [];
@@ -76,7 +79,6 @@ class DateSearch extends React.Component {
         //             }
         //         );
         //     })
-
     }
 
     handleFromDateChange = e => {
@@ -175,7 +177,7 @@ class DateSearch extends React.Component {
                                 <CardFooter>
                                     <Button
                                         color="info"
-                                        onClick={this.getdata}
+                                        onClick={this.handleFilterDate}
                                     >
                                         Get Tasks List
                                     </Button>
@@ -185,10 +187,10 @@ class DateSearch extends React.Component {
                     </Row>
                 </div>
                 {
-                    this.state.filtered_tasks != 0 ?
+                    this.state.show_filtered_tasks ?
                         <>
                             <div style={{ padding: "50px" }}></div>
-                            <TaskList isSubSection={true} />
+                            <TaskList isSubSection={true} start_datetime={this.state.from_date_min} finish_datetime={this.state.to_date_max} />
                         </> : <></>
                 }
             </>
