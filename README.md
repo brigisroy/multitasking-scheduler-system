@@ -47,7 +47,7 @@ This web application which can be used to schedule, manage and monitor jobs effi
 
 ![Schedule Job](https://user-images.githubusercontent.com/43792122/184533387-ff1ee57d-bfe9-45dd-b38e-0225ca9e43bc.png)
 
-![Sample file Download](https://user-images.githubusercontent.com/43792122/184533386-605f25c2-0cbd-4ad5-9ffd-d0420c7a1a80.png)
+![Sample file Download](https://user-images.githubusercontent.com/43792122/184538528-b4c5e5a1-2bfd-4810-ab05-12e32fdf372e.png)
 
 ![Schedule Job Bulk](https://user-images.githubusercontent.com/43792122/184533379-85e4e85f-01c0-4a6b-91ff-d9cd00ba35c0.png)
 
@@ -57,7 +57,7 @@ This web application which can be used to schedule, manage and monitor jobs effi
 
 ![Bulk job Schedule via csv upload](https://user-images.githubusercontent.com/43792122/184533390-c6a25c57-a48f-4493-84da-0ece7f4fdb10.png)
 
-![Task List](https://user-images.githubusercontent.com/43792122/184533391-be498472-2afe-4601-8f26-4f0717ba577c.png)
+![Task List](http![Screenshot 2022-08-14 183507](https://user-images.githubusercontent.com/43792122/184538406-38192be9-0f0b-4437-b862-ef6e8ac5669d.png)
 
 ![Task Filer by Time range](https://user-images.githubusercontent.com/43792122/184533392-5635bc05-4a96-4190-b762-ea50d406f184.png)
 
