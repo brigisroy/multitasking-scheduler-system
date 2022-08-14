@@ -55,3 +55,6 @@ Go to multi-task-scheduler/server
 ![Task Filer by Time range](https://user-images.githubusercontent.com/43792122/184533392-5635bc05-4a96-4190-b762-ea50d406f184.png)
 
 ![Alert config](https://user-images.githubusercontent.com/43792122/184533382-b01110b0-72f8-403c-ac27-faa462c6f4d4.png)
+
+![Mail Alert](https://user-images.githubusercontent.com/43792122/184533729-9b897b02-cbf3-45b3-aa22-09594a4e920b.png)
+
