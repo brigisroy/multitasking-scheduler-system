@@ -1,18 +1,19 @@
 Arun J:
 1. Dashboard
-   1. Jobs running
-   1. Jobs created
-   1. Job execution time
-   2. Job capacity
-   3. Show job count at top
+   ~~1. Jobs running~~
+   ~~1. Jobs created~~
+   ~~1. Job execution time~~
+   ~~1. Job capacity~~
+   ~~1. Show job count at top~~
+   1. Replace mock chat data in chat with historical data
 1. ~~Job create~~
 1. ~~Create Bulk Job~~
 1. ~~List Job~~
-2. List tasks based on start and end filter
-1. Edit job
-1. Delete job
+2. ~~List tasks based on start and end filter~~
+1. ~~Edit job~~
+1. ~~Delete job~~
 ~~1. List tasks~~
-1. Edit tasks
+1. ~~Edit tasks~~
 ~~1. Delete tasks~~
 ~~1. Alert config~~
 
