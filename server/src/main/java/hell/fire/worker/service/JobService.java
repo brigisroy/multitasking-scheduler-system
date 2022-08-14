@@ -72,7 +72,7 @@ public class JobService {
             }
             job.setStatus(JobsStatus.STARTED);
             jobsRepo.save(job);
-//            triggerMail(job);
+            triggerMail(job);
         });
         taskRepo.saveAll(taskList);
         return savedJobs;
