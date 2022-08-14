@@ -34,8 +34,8 @@ public class JobsController {
     }
 
     @DeleteMapping("/jobs/{id}")
-    public ResponseEntity<String> updateJob(@PathVariable long job){
-        return new ResponseEntity<>(jobService.deleteJob(job),HttpStatus.OK);
+    public ResponseEntity<String> updateJob(@PathVariable long id){
+        return new ResponseEntity<>(jobService.deleteJob(id),HttpStatus.OK);
     }
     @GetMapping("/jobs/{id}")
     public ResponseEntity<Object> getTaskByJobId(@PathVariable long id) {
