@@ -57,7 +57,7 @@ This web application which can be used to schedule, manage and monitor jobs effi
 
 ![Bulk job Schedule via csv upload](https://user-images.githubusercontent.com/43792122/184533390-c6a25c57-a48f-4493-84da-0ece7f4fdb10.png)
 
-![Task List](http![Screenshot 2022-08-14 183507](https://user-images.githubusercontent.com/43792122/184538406-38192be9-0f0b-4437-b862-ef6e8ac5669d.png)
+![Task List](https://user-images.githubusercontent.com/43792122/184538406-38192be9-0f0b-4437-b862-ef6e8ac5669d.png)
 
 ![Task Filer by Time range](https://user-images.githubusercontent.com/43792122/184533392-5635bc05-4a96-4190-b762-ea50d406f184.png)
 
