@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -43,7 +44,7 @@ public class JobService {
             jobs.add(job);
         });
         List<Jobs> savedJobs = jobsRepo.saveAll(jobs);
-        triggerMailList(savedJobs);
+        emailService.triggerMailList(savedJobs);
         savedJobs.forEach(job -> {
             String JOB_NAME = job.getName();
             String JOB_VALUE = job.getValue();
@@ -81,41 +82,6 @@ public class JobService {
         return jobsRepo.findAll();
     }
 
-//    @Scheduled(fixedRateString = "PT1M")
-//    public void createTasks() {
-//        Long now = new Date().getTime();
-//        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin(now);
-//        List<Tasks> taskList = new ArrayList<>();
-//        jobs.forEach(job -> {
-//            String JOB_NAME = job.getName();
-//            String JOB_VALUE = job.getValue();
-//            long JOB_ID = job.getId();
-//            long START_TIME = job.getStartDatetime();
-//            long END_TIME = job.getFinishDatetime();
-//            long FREQUENCY_IN_HR = job.getFrequencyInHr();
-//            int REQUIRED_CAPACITY = job.getRequiredCapacity();
-//            long timeDifference = END_TIME - START_TIME;
-//            long toHrs = timeDifference / (60 * 60 * 1000);
-//            int count = Math.round(toHrs / FREQUENCY_IN_HR);
-//            long countTime = START_TIME;
-//            for (int i = 1; i <= count; i++) {
-//                countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
-//                Tasks task = new Tasks();
-//                task.setName(JOB_NAME + " task " + i);
-//                task.setValue(JOB_VALUE);
-//                task.setStatus(JobsStatus.CREATED);
-//                task.setRequiredCapacity(REQUIRED_CAPACITY);
-//                task.setStartDatetime(countTime);
-//                task.setJob(job);
-//                taskList.add(task);
-//            }
-//            job.setStatus(JobsStatus.STARTED);
-//            jobsRepo.save(job);
-//            triggerMail(job);
-//        });
-//        taskRepo.saveAll(taskList);
-//    }
-
 
     public List<Tasks> getTaskByJobId(long id) {
         return taskRepo.findAllByJobId(id);
@@ -137,53 +103,7 @@ public class JobService {
         }
     }
 
-    private void triggerMailList(List<Jobs> jobs) {
-//        {
-//            "id":4, "name":"heloo", "value":"100", "status":"STARTED", "createAt":1660468993720, "start_datetime":
-//            1660501800000, "finish_datetime":1660588200000, "required_capacity":50, "frequency_in_hr":
-//            5, "exec_time_in_min":40
-//        }
-        String subject = "Status Update MTS";
 
-        StringBuilder table = new StringBuilder();
-
-        jobs.forEach(job -> {
-            table.append("<tr>" +
-                    "<td>" + job.getName() + "</td>" +
-                    "<td>" + job.getValue() + "</td>" +
-                    "<td>" + job.getStatus() + "</td>" +
-                    "<td>" + job.getStartDatetime() + "</td>" +
-                    "<td>" + job.getFinishDatetime() + "</td>" +
-                    "<td>" + job.getRequiredCapacity() + "</td>" +
-                    "<td>" + job.getFrequencyInHr() + "</td>" +
-                    " </tr>\n");
-        });
-
-
-        String htmlText = "<style>\n" +
-                "  table, th, td {\n" +
-                "    border: 1px solid black;\n" +
-                "    border-collapse: collapse;\n" +
-                "    text-align:center;}" +
-                "\n</style>" +
-                "  \n<table>\n" +
-                "  <tr>\n" +
-                "    <th>Job Name</th>\n" +
-                "    <th>Value</th>\n" +
-                "    <th>Status</th>\n" +
-                "    <th>Start time</th>\n" +
-                "    <th>Finish Time</th>\n" +
-                "    <th>Required Capacity</th>\n" +
-                "    <th>Frequency in Hours</th>\n" +
-                "  </tr>\n" +
-                table.toString() +
-                "</table>";
-        try {
-            emailService.sendMineMessage(subject, htmlText);
-        } catch (MessagingException e) {
-            System.out.println("error sending mail");
-        }
-    }
 
     public List<Tasks> getTasksAll() {
         return taskRepo.findAll();

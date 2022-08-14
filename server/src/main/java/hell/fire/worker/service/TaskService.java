@@ -16,6 +16,8 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepo;
 
+    @Autowired
+    private EmailService emailService;
 
     public List<Tasks> getAllTasks() {
         return taskRepo.findAll();
@@ -31,24 +33,24 @@ public class TaskService {
         }
     }
 
-    @Scheduled(fixedRateString = "PT10M")
+    @Scheduled(fixedRateString = "PT1M")
     public void runTaskSetRunning() {
         long now = new Date().getTime();
         List<Tasks> tasksList = taskRepo.findAllTaskCreatedLessThanOneMin(now);
         tasksList.forEach(tasks -> {
             tasks.setStatus(JobsStatus.RUNNING);
         });
-        taskRepo.saveAll(tasksList);
+        emailService.triggerMailTaskList(taskRepo.saveAll(tasksList));
     }
 
 
-    @Scheduled(fixedRateString = "PT7M")
+    @Scheduled(fixedRateString = "PT5M")
     public void runTaskSetDone() {
         long now = new Date().getTime();
         List<Tasks> tasksList = taskRepo.findAllTaskRunningLessThanOneMin(now);
         tasksList.forEach(tasks -> {
             tasks.setStatus(JobsStatus.COMPLETED);
         });
-        taskRepo.saveAll(tasksList);
+         emailService.triggerMailTaskList(taskRepo.saveAll(tasksList));
     }
 }

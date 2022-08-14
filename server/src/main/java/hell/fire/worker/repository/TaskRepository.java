@@ -16,16 +16,16 @@ public interface TaskRepository extends JpaRepository<Tasks, Long> {
     @Query(value = "select * from task where start_datetime between ?1 and ?2", nativeQuery = true)
     List<Tasks> getAllByRangeTime(long startTime, long endTime);
 
-    @Query(value = "select * from jobs where start_datetime < ?1 and status='CREATED'", nativeQuery = true)
+    @Query(value = "select * from task where start_datetime < ?1 and status='CREATED'", nativeQuery = true)
     List<Tasks> findAllTaskCreatedLessThanOneMin(long now);
 
-    @Query(value = "select * from jobs where start_datetime < ?1 and status='STARTED'", nativeQuery = true)
+    @Query(value = "select * from task where start_datetime < ?1 and status='STARTED'", nativeQuery = true)
     List<Tasks> findAllTaskStartedLessThanOneMin(long now);
 
-    @Query(value = "select * from jobs where start_datetime < ?1 and status='RUNNING'", nativeQuery = true)
+    @Query(value = "select * from task where start_datetime < ?1 and status='RUNNING'", nativeQuery = true)
     List<Tasks> findAllTaskRunningLessThanOneMin(long now);
 
 
-    @Query(value = "select * from jobs where start_datetime < ?1 and status='COMPLETED'", nativeQuery = true)
+    @Query(value = "select * from task where start_datetime < ?1 and status='COMPLETED'", nativeQuery = true)
     List<Tasks> findAllTaskCompletedLessThanOneMin(long now);
 }
