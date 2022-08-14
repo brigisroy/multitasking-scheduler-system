@@ -22,7 +22,7 @@ This web application can be used to schedule, manage and monitor jobs efficientl
 > npm start
 
 
-# To start mysql server 
+# To start mysql server: 
 > cd multi-task-scheduler/server/src/db \
 > docker compose up
 
