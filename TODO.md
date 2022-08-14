@@ -11,10 +11,10 @@ Arun J:
 1. ~~Create Bulk Job~~
 1. ~~List Job~~
 2. ~~List tasks based on start and end filter~~
-1. Edit job [UI AND API ready but not integrated due to time constraints]
+1. Edit job [UI and API ready but not yet integrated due to time constraints]
 1. ~~Delete job~~
 ~~1. List tasks~~
-1. Edit tasks [UI AND API ready but not integrated due to time constraints]
+1. Edit tasks [UI and API ready but not yet integrated due to time constraints]
 ~~1. Delete tasks~~
 ~~1. Alert config~~
 
