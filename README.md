@@ -30,7 +30,7 @@ Go to multi-task-scheduler
 # To start server:
 Go to multi-task-scheduler/server
 > mvn clean install \
->cd server\target \
+> cd target \
 > java -jar worker-1.jar
 
 
