@@ -18,7 +18,7 @@ This web application which can be used to schedule, manage and monitor jobs effi
 4. Install Java 11 and maven (mvm)
 
 # To start client:
-Go to multi-task-scheduler \
+Go to multi-task-scheduler 
 > npm i --legacy-peer-deps \
 > npm start
 
