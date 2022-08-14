@@ -15,7 +15,6 @@ This web application which can be used to schedule, manage and monitor jobs effi
 * Spring Boot
 * Docker
 * Mysql
-* Jenkins
 * Maven
 * Mailing with mailtrap.io's API
 
