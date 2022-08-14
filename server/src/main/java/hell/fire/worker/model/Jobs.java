@@ -31,7 +31,7 @@ public class Jobs {
     @JsonProperty("frequency_in_hr")
     private int frequencyInHr;
     @JsonProperty("exec_time_in_min")
-    private int execTimeInMin = 0;
+    private int execTimeInMin;
     @Column(columnDefinition = "enum('CREATED', 'STARTED', 'RUNNING', 'CANCELLED', 'STOPPED', 'COMPLETED')")
     @Enumerated(EnumType.STRING)
     private JobsStatus status;

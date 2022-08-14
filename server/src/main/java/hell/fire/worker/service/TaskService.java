@@ -1,10 +1,13 @@
 package hell.fire.worker.service;
 
 import hell.fire.worker.model.Tasks;
+import hell.fire.worker.model.eumus.JobsStatus;
 import hell.fire.worker.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -19,12 +22,33 @@ public class TaskService {
     }
 
     public String deleteTaskById(long taskId) {
-
         if (taskRepo.existsById(taskId)) {
-            taskRepo.deleteById(taskId);
+            Tasks tasks = taskRepo.getById(taskId);
+            taskRepo.delete(tasks);
             return "Task Deleted with " + taskId;
         } else {
             return "Invalid Id ";
         }
+    }
+
+    @Scheduled(fixedRateString = "PT10M")
+    public void runTaskSetRunning() {
+        long now = new Date().getTime();
+        List<Tasks> tasksList = taskRepo.findAllTaskCreatedLessThanOneMin(now);
+        tasksList.forEach(tasks -> {
+            tasks.setStatus(JobsStatus.RUNNING);
+        });
+        taskRepo.saveAll(tasksList);
+    }
+
+
+    @Scheduled(fixedRateString = "PT7M")
+    public void runTaskSetDone() {
+        long now = new Date().getTime();
+        List<Tasks> tasksList = taskRepo.findAllTaskRunningLessThanOneMin(now);
+        tasksList.forEach(tasks -> {
+            tasks.setStatus(JobsStatus.COMPLETED);
+        });
+        taskRepo.saveAll(tasksList);
     }
 }

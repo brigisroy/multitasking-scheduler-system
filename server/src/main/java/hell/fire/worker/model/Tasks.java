@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,7 +25,7 @@ public class Tasks {
     private Long startDatetime;
     private String value;
     @JsonProperty("exec_time_in_min")
-    private int execTimeInMin = 0;
+    private int execTimeInMin;
     @Column(columnDefinition = "enum('CREATED', 'STARTED', 'RUNNING', 'CANCELLED', 'STOPPED', 'COMPLETED')")
     @Enumerated(EnumType.STRING)
     private JobsStatus status;

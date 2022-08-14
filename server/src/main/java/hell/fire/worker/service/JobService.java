@@ -31,6 +31,7 @@ public class JobService {
 
     public List<Jobs> createJob(List<JobsDTO> jobsDTOS) {
         List<Jobs> jobs = new ArrayList<>();
+        List<Tasks> taskList = new ArrayList<>();
         jobsDTOS.forEach(jobsDTO -> {
             Jobs job = new Jobs();
             job.setName(jobsDTO.getName());
@@ -42,19 +43,8 @@ public class JobService {
             job.setStatus(JobsStatus.CREATED);
             jobs.add(job);
         });
-        return jobsRepo.saveAll(jobs);
-    }
-
-    public List<Jobs> getAllJobs() {
-        return jobsRepo.findAll();
-    }
-
-    @Scheduled(fixedRateString = "PT1M")
-    public void createTasks() {
-        Long now = new Date().getTime();
-        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin(now);
-        List<Tasks> taskList = new ArrayList<>();
-        jobs.forEach(job -> {
+        List<Jobs> savedJobs = jobsRepo.saveAll(jobs);
+        savedJobs.forEach(job -> {
             String JOB_NAME = job.getName();
             String JOB_VALUE = job.getValue();
             long JOB_ID = job.getId();
@@ -72,6 +62,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
+                task.setExecTimeInMin(job.getExecTimeInMin());
                 task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
                 task.setJob(job);
@@ -79,10 +70,50 @@ public class JobService {
             }
             job.setStatus(JobsStatus.STARTED);
             jobsRepo.save(job);
-            triggerMail(job);
+//            triggerMail(job);
         });
         taskRepo.saveAll(taskList);
+        return savedJobs;
     }
+
+    public List<Jobs> getAllJobs() {
+        return jobsRepo.findAll();
+    }
+
+//    @Scheduled(fixedRateString = "PT1M")
+//    public void createTasks() {
+//        Long now = new Date().getTime();
+//        List<Jobs> jobs = jobsRepo.getAllLessThanOneMin(now);
+//        List<Tasks> taskList = new ArrayList<>();
+//        jobs.forEach(job -> {
+//            String JOB_NAME = job.getName();
+//            String JOB_VALUE = job.getValue();
+//            long JOB_ID = job.getId();
+//            long START_TIME = job.getStartDatetime();
+//            long END_TIME = job.getFinishDatetime();
+//            long FREQUENCY_IN_HR = job.getFrequencyInHr();
+//            int REQUIRED_CAPACITY = job.getRequiredCapacity();
+//            long timeDifference = END_TIME - START_TIME;
+//            long toHrs = timeDifference / (60 * 60 * 1000);
+//            int count = Math.round(toHrs / FREQUENCY_IN_HR);
+//            long countTime = START_TIME;
+//            for (int i = 1; i <= count; i++) {
+//                countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
+//                Tasks task = new Tasks();
+//                task.setName(JOB_NAME + " task " + i);
+//                task.setValue(JOB_VALUE);
+//                task.setStatus(JobsStatus.CREATED);
+//                task.setRequiredCapacity(REQUIRED_CAPACITY);
+//                task.setStartDatetime(countTime);
+//                task.setJob(job);
+//                taskList.add(task);
+//            }
+//            job.setStatus(JobsStatus.STARTED);
+//            jobsRepo.save(job);
+//            triggerMail(job);
+//        });
+//        taskRepo.saveAll(taskList);
+//    }
 
 
     public List<Tasks> getTaskByJobId(long id) {
@@ -136,6 +167,7 @@ public class JobService {
                 Tasks task = new Tasks();
                 task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
+                task.setExecTimeInMin(job.getExecTimeInMin());
                 task.setStatus(JobsStatus.CREATED);
                 task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
