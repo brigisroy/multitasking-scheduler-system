@@ -39,6 +39,7 @@ public class JobService {
             job.setStartDatetime(jobsDTO.getStartDatetime());
             job.setFinishDatetime(jobsDTO.getFinishDatetime());
             job.setRequiredCapacity(jobsDTO.getRequiredCapacity());
+            job.setExecTimeInMin(jobsDTO.getExecTimeInMin());
             job.setFrequencyInHr(jobsDTO.getFrequencyInHr());
             job.setStatus(JobsStatus.CREATED);
             jobs.add(job);
@@ -52,6 +53,7 @@ public class JobService {
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             int REQUIRED_CAPACITY = job.getRequiredCapacity();
+            int EXEC_TIME_IN_MIN =job.getExecTimeInMin();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
@@ -62,7 +64,7 @@ public class JobService {
                 task.setName(JOB_NAME + " task " + i);
                 task.setValue(JOB_VALUE);
                 task.setStatus(JobsStatus.CREATED);
-                task.setExecTimeInMin(job.getExecTimeInMin());
+                task.setExecTimeInMin(EXEC_TIME_IN_MIN);
                 task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
                 task.setJob(job);
@@ -157,7 +159,7 @@ public class JobService {
             long END_TIME = job.getFinishDatetime();
             long FREQUENCY_IN_HR = job.getFrequencyInHr();
             int REQUIRED_CAPACITY = job.getRequiredCapacity();
-
+            int EXEC_TIME_IN_MIN =job.getExecTimeInMin();
             long timeDifference = END_TIME - START_TIME;
             long toHrs = timeDifference / (60 * 60 * 1000);
             int count = Math.round(toHrs / FREQUENCY_IN_HR);
@@ -167,7 +169,7 @@ public class JobService {
                 Tasks task = new Tasks();
                 task.setName(JOB_NAME + " task " + i + 1);
                 task.setValue(JOB_VALUE);
-                task.setExecTimeInMin(job.getExecTimeInMin());
+                task.setExecTimeInMin(EXEC_TIME_IN_MIN);
                 task.setStatus(JobsStatus.CREATED);
                 task.setRequiredCapacity(REQUIRED_CAPACITY);
                 task.setStartDatetime(countTime);
