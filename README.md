@@ -1,6 +1,6 @@
 # Multi Task scheduler system
 
-This web application which can be used to schedule, manage and monitor jobs efficiently. This application is built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
+This web application can be used to schedule, manage and monitor jobs efficiently. This application is built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
 
 ## Tech Stack
 * React.js
