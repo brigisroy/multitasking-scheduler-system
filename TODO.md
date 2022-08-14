@@ -6,7 +6,7 @@ Arun J:
    ~~1. Job capacity~~ \
    ~~1. Show job count at top~~ \
    ~~1. Implement charts~~ \
-     1. Replace mock chart data in chat with historical data
+     1. Replace mock chart data in dashboard with historical data
 1. ~~Job create~~
 1. ~~Create Bulk Job~~
 1. ~~List Job~~
