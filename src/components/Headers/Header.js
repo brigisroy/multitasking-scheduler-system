@@ -65,23 +65,23 @@ const Header = () => {
 
   const getJobs = () => {
     Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/`)
-        .then(res => {
-            let jobs = [];
-            res.data.forEach(job => {
-              jobs.push(job)
-            })
-            setJobs(jobs)
+      .then(res => {
+        let jobs = [];
+        res.data.forEach(job => {
+          jobs.push(job)
         })
-        .catch(err => {
-            console.log(err)
-            this.props.enqueueSnackbar(
-                "Something went wrong",
-                {
-                    variant: "warning"
-                }
-            );
-        })
-}
+        setJobs(jobs)
+      })
+      .catch(err => {
+        console.log(err)
+        this.props.enqueueSnackbar(
+          "Something went wrong",
+          {
+            variant: "warning"
+          }
+        );
+      })
+  }
 
   return (
     <>
@@ -135,7 +135,7 @@ const Header = () => {
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
-                          <i className="fas fa-chart-pie" />
+                          <i className="fa-solid fa-gears"></i>
                         </div>
                       </Col>
                     </Row>
@@ -163,7 +163,7 @@ const Header = () => {
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                          <i className="fas fa-users" />
+                          <i className="fa-solid fa-arrows-spin"></i>
                         </div>
                       </Col>
                     </Row>
@@ -191,7 +191,7 @@ const Header = () => {
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                          <i className="fas fa-percent" />
+                          <i className="fa-solid fa-memory"></i>
                         </div>
                       </Col>
                     </Row>
