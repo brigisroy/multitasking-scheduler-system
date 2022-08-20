@@ -1,4 +1,4 @@
-# Multi Task scheduler system
+# Multi Tasking Scheduler System
 
 This web application can be used to schedule, manage and monitor jobs efficiently. This application is built on latest tech stack to make use of the best aspects of design and security, thus making it an application with robust architecture.  
 
