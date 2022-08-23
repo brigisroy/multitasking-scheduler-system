@@ -76,7 +76,7 @@ class JobEdit extends React.Component {
         payload.jobs.map((job, index) => {
             if (!job.name) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Name field is empty`,
+                    `Job's Name field is empty`,
                     {
                         variant: "error"
                     }
@@ -87,7 +87,7 @@ class JobEdit extends React.Component {
 
             if (!job.start_datetime) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Start date time field is empty`,
+                    `Job's Start date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -99,7 +99,7 @@ class JobEdit extends React.Component {
 
             if (!job.finish_datetime) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Finish date time field is empty`,
+                    `Job's Finish date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -110,7 +110,7 @@ class JobEdit extends React.Component {
 
             if (job.required_capacity < 1 || job.required_capacity > 80) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Required capacity should be within 1 to 80`,
+                    `Job's Required capacity should be within 1 to 80`,
                     {
                         variant: "error"
                     }
@@ -121,7 +121,7 @@ class JobEdit extends React.Component {
 
             if (job.value < 1 || job.value > 100) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s value should be within 1 to 100`,
+                    `Job's value should be within 1 to 100`,
                     {
                         variant: "error"
                     }
@@ -132,7 +132,7 @@ class JobEdit extends React.Component {
 
             if (job.frequency_in_hr === "") {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Frequency field is empty`,
+                    `Job's Frequency field is empty`,
                     {
                         variant: "error"
                     }
