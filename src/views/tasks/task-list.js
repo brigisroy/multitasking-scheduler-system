@@ -128,9 +128,9 @@ class TaskList extends React.Component {
                 Math.round((row.finish_datetime - row.start_datetime) / 60000),
                 this.getProgressBar(parseInt(row.start_datetime), parseInt(row.finish_datetime)),
                 <>
-                    <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/task/edit?id=" + row.id }}>
+                    {/* <Button className="btn-icon btn-2" size="sm" type="button" onClick={() => { window.location.href = "/admin/task/edit?id=" + row.id }}>
                         <i className="fa-solid fa-pen-to-square text-orange"></i>
-                    </Button >
+                    </Button > */}
                     <Button className="btn-icon btn-2 " size="sm" type="button" onClick={() => { this.handleDelete(row.id) }}>
                         <i className="fa-regular fa-trash-can text-red"></i>
                     </Button>
