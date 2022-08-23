@@ -30,8 +30,9 @@ class JobEdit extends React.Component {
     state = {
         jobs: [
             {
+                id: "",
                 name: "",
-                start_datetime: "", // new Date().valueOf(),
+                start_datetime: "",
                 finish_datetime: "",
                 value: "",  // 1 - 100
                 required_capacity: "", // 1 - 80
@@ -39,11 +40,25 @@ class JobEdit extends React.Component {
                 exec_time_in_min: ""
             }
         ],
-        isJobCreationSuccess: false,
+        isJobEditSuccess: false,
         isSubmitBtnDisabled: false
     };
 
     // ======= Handler functions start =======
+
+    componentDidMount() {
+        let job_id = 9 //Get job id
+        Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/${job_id}`)
+            .then(res => {
+                console.log(res);
+                let jobs = []
+                jobs.push(
+                    res.data
+                    //TODO: Put response here
+                )
+                this.setState({ jobs: jobs })
+            })
+    }
 
     handleSubmit = e => {
         console.log(this.state.jobs)
@@ -61,7 +76,7 @@ class JobEdit extends React.Component {
         payload.jobs.map((job, index) => {
             if (!job.name) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Name field is empty`,
+                    `Job's Name field is empty`,
                     {
                         variant: "error"
                     }
@@ -72,7 +87,7 @@ class JobEdit extends React.Component {
 
             if (!job.start_datetime) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Start date time field is empty`,
+                    `Job's Start date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -81,10 +96,10 @@ class JobEdit extends React.Component {
                 return null;
             }
 
-            
+
             if (!job.finish_datetime) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Finish date time field is empty`,
+                    `Job's Finish date time field is empty`,
                     {
                         variant: "error"
                     }
@@ -95,7 +110,7 @@ class JobEdit extends React.Component {
 
             if (job.required_capacity < 1 || job.required_capacity > 80) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Required capacity should be within 1 to 80`,
+                    `Job's Required capacity should be within 1 to 80`,
                     {
                         variant: "error"
                     }
@@ -106,7 +121,7 @@ class JobEdit extends React.Component {
 
             if (job.value < 1 || job.value > 100) {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s value should be within 1 to 100`,
+                    `Job's value should be within 1 to 100`,
                     {
                         variant: "error"
                     }
@@ -117,7 +132,7 @@ class JobEdit extends React.Component {
 
             if (job.frequency_in_hr === "") {
                 this.props.enqueueSnackbar(
-                    `Job ${index + 1}'s Frequency field is empty`,
+                    `Job's Frequency field is empty`,
                     {
                         variant: "error"
                     }
@@ -134,16 +149,26 @@ class JobEdit extends React.Component {
         }
 
         this.setState({ isSubmitBtnDisabled: true })
-        Axios.post(`${CONSTANTS.SERVER_URL}/api/jobs`, payload.jobs)
+        // Axios.put(`${CONSTANTS.SERVER_URL}/api/jobs`,
+        // {
+        //     id: 11,
+        //     name: "import dd uu", 
+        //     start_datetime: 1661193000000,
+        //     exec_time_in_min: "12",
+        //     finish_datetime: 1661279400000,
+        //     frequency_in_hr: "1",
+        //     required_capacity: "33",
+        // })
+        Axios.put(`${CONSTANTS.SERVER_URL}/api/jobs/`, payload.jobs[0])
             .then(res => {
                 console.log(res);
                 this.props.enqueueSnackbar(
-                    "Jobs successfully scheduled",
+                    "Job Edited Successfully",
                     {
                         variant: "success"
                     }
                 );
-                this.setState({ isJobCreationSuccess: true })
+                this.setState({ isJobEditSuccess: true })
             })
             .catch(err => {
                 console.log(err)
@@ -186,23 +211,8 @@ class JobEdit extends React.Component {
         let jobs = this.state.jobs
         jobs[index][job_name] = e.target.value
         this.setState({ jobs: jobs }
-            // , () => {
-            // if (this.state.jobs[index].start_datetime && this.state.jobs[index].exec_time_in_min) {
-            //     let jobs = this.state.jobs;
-            //     let start_time = new Date(jobs[index].start_datetime);
-            //     jobs[index].finish_datetime = start_time.setMinutes(start_time.getMinutes() + jobs[index].exec_time_in_min).valueOf()
-            //     this.setState({ jobs: jobs })
-            // }
-            // }
         )
     };
-
-    // handleRemoveJob = e => {
-    //     const index = e.target.name;
-    //     let jobs = this.state.jobs;
-    //     jobs.splice(index, 1);
-    //     this.setState({ jobs: jobs })
-    // };
 
     // =======  Handler functions end  =======
 
@@ -306,7 +316,7 @@ class JobEdit extends React.Component {
                                                                     value: e.valueOf(),
                                                                     id: index
                                                                 })}
-                                                                // value={this.state.jobs[index].finish_datetime ? new Date(this.state.jobs[index].finish_datetime) : "Enter Start and Execution time to see Job End Time"}
+                                                                value={this.state.jobs[index].finish_datetime}
                                                             />
                                                         </InputGroup>
                                                     </FormGroup>
@@ -447,7 +457,7 @@ class JobEdit extends React.Component {
                 </Container>
 
                 {/* Redirect on submit */}
-                {this.state.isJobCreationSuccess ? <Redirect to="/admin/list-jobs/" /> : null}
+                {this.state.isJobEditSuccess ? <Redirect to="/admin/list-jobs/" /> : null}
 
             </>
         );
