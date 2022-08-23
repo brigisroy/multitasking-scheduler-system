@@ -134,7 +134,7 @@ public class JobService {
             for (int i = 0; i <= count; i++) {
                 countTime = countTime + (60 * 60 * 1000 * FREQUENCY_IN_HR);
                 Tasks task = new Tasks();
-                task.setName(JOB_NAME + " task " + i + 1);
+                task.setName(JOB_NAME + " task " + (i + 1));
                 task.setValue(JOB_VALUE);
                 task.setExecTimeInMin(EXEC_TIME_IN_MIN);
                 task.setStatus(JobsStatus.CREATED);

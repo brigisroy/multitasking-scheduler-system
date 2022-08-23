@@ -45,6 +45,28 @@ class JobEdit extends React.Component {
 
     // ======= Handler functions start =======
 
+    componentDidMount() {
+        let job_id = 0 //Get job id
+        Axios.put(`${CONSTANTS.SERVER_URL}/api/jobs`,
+            {
+                id: 10,
+                name: "import dd uu", 
+                start_datetime: 1661193000000,
+                exec_time_in_min: "12",
+                finish_datetime: 1661279400000,
+                frequency_in_hr: "1",
+                required_capacity: "33",
+            })
+            .then(res => {
+                console.log(res);
+                let jobs = []
+                jobs.push(
+                    //TODO: Put response here
+                )
+                this.setState({ jobs: jobs })
+            })
+    }
+
     handleSubmit = e => {
         console.log(this.state.jobs)
         let payload = {};
@@ -81,7 +103,7 @@ class JobEdit extends React.Component {
                 return null;
             }
 
-            
+
             if (!job.finish_datetime) {
                 this.props.enqueueSnackbar(
                     `Job ${index + 1}'s Finish date time field is empty`,
@@ -306,7 +328,7 @@ class JobEdit extends React.Component {
                                                                     value: e.valueOf(),
                                                                     id: index
                                                                 })}
-                                                                // value={this.state.jobs[index].finish_datetime ? new Date(this.state.jobs[index].finish_datetime) : "Enter Start and Execution time to see Job End Time"}
+                                                            // value={this.state.jobs[index].finish_datetime ? new Date(this.state.jobs[index].finish_datetime) : "Enter Start and Execution time to see Job End Time"}
                                                             />
                                                         </InputGroup>
                                                     </FormGroup>
