@@ -27,6 +27,7 @@ import CONSTANTS from "./../../variables/general.js";
 import { Redirect } from "react-router-dom";
 
 class JobEdit extends React.Component {
+    
     state = {
         jobs: [
             {
@@ -47,7 +48,7 @@ class JobEdit extends React.Component {
     // ======= Handler functions start =======
 
     componentDidMount() {
-        let job_id = 9 //Get job id
+        let job_id = new URLSearchParams(this.props.location.search).get("id")
         Axios.get(`${CONSTANTS.SERVER_URL}/api/jobs/${job_id}`)
             .then(res => {
                 console.log(res);
