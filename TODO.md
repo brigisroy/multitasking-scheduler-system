@@ -6,15 +6,15 @@ Arun J:
    ~~1. Job capacity~~ \
    ~~1. Show job count at top~~ \
    ~~1. Implement charts~~ \
-     1. Replace mock chart data in chat with historical data
+     1. Replace mock chart data in dashboard with historical data
 1. ~~Job create~~
 1. ~~Create Bulk Job~~
 1. ~~List Job~~
 2. ~~List tasks based on start and end filter~~
-1. ~~Edit job~~
+1. Edit job [UI and API ready but not yet integrated due to time constraints]
 1. ~~Delete job~~
 ~~1. List tasks~~
-1. ~~Edit tasks~~
+1. Edit tasks [UI and API ready but not yet integrated due to time constraints]
 ~~1. Delete tasks~~
 ~~1. Alert config~~
 

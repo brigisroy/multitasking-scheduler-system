@@ -95,7 +95,6 @@ class AlertConfig extends React.Component {
     }
 
     handleDelete = (id) => {
-        console.log(id)
         Axios.delete(`${CONSTANTS.SERVER_URL}/api/alert/` + id)
             .then(res => {
                 console.log(res);
@@ -105,6 +104,7 @@ class AlertConfig extends React.Component {
                         variant: "success"
                     }
                 );
+                this.getAlerts();
             })
             .catch(err => {
                 console.log(err)
@@ -189,9 +189,6 @@ class AlertConfig extends React.Component {
                                                     onChange={this.handleChange}
                                                 />
                                             </FormGroup>
-
-                                            <></>
-
                                         </Col>
                                     </Row>
                                 </CardBody>
@@ -203,21 +200,21 @@ class AlertConfig extends React.Component {
 
                             </Card>
                             <Card>
-                            <CardHeader className="bg-white border-0">
-                            <Row className="align-items-center">
-                                <Col xs="8">
-                                    <h3 className="mb-0">Mailing List</h3>
-                                </Col>
-                            </Row>
-                        </CardHeader>
-                        <CardBody>
-                            <GridContainer>
-                                <GridItem xs={12} sm={12} md={12}>
-                                <MUIDataTable title={""} data={this.generateTableData(this.state.mail)} columns={columns} options={options} />
-                                </GridItem>
-                            </GridContainer>
-                        </CardBody>
-                        <CardFooter />
+                                <CardHeader className="bg-white border-0">
+                                    <Row className="align-items-center">
+                                        <Col xs="8">
+                                            <h3 className="mb-0">Mailing List</h3>
+                                        </Col>
+                                    </Row>
+                                </CardHeader>
+                                <CardBody>
+                                    <GridContainer>
+                                        <GridItem xs={12} sm={12} md={12}>
+                                            <MUIDataTable title={""} data={this.generateTableData(this.state.mail)} columns={columns} options={options} />
+                                        </GridItem>
+                                    </GridContainer>
+                                </CardBody>
+                                <CardFooter />
                             </Card>
                         </Col>
                     </Row>
