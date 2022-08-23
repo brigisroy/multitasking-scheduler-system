@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobService {
@@ -83,8 +83,8 @@ public class JobService {
     }
 
 
-    public List<Tasks> getTaskByJobId(long id) {
-        return taskRepo.findAllByJobId(id);
+    public Optional<Jobs> getTaskByJobId(long id) {
+        return jobsRepo.findById(id);
     }
 
     private void triggerMail(Jobs job) {
